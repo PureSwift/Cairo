@@ -1,0 +1,41 @@
+//
+//  Surface.swift
+//  Cairo
+//
+//  Created by Alsey Coleman Miller on 1/31/16.
+//  Copyright © 2016 PureSwift. All rights reserved.
+//
+
+import CCairo
+
+public final class Surface {
+    
+    // MARK: - Internal Properties
+    
+    internal var internalPointer: COpaquePointer
+    
+    // MARK: - Initialization
+    
+    deinit {
+        
+        assert(internalPointer != nil, "Internal pointer of deallocating object is nil")
+        
+        cairo_surface_destroy(internalPointer)
+    }
+    
+    public convenience init(format: ImageFormat, width: Int, height: Int) {
+        
+        let internalFormat = cairo_format_t(rawValue: format.rawValue)
+        
+        let pointer = cairo_image_surface_create(internalFormat, Int32(width), Int32(height))
+        
+        self.init(pointer)
+    }
+    
+    internal init(_ internalPointer: COpaquePointer) {
+        
+        assert(internalPointer != nil, "Internal pointer is nil")
+        
+        self.internalPointer = internalPointer
+    }
+}
