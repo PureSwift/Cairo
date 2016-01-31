@@ -21,6 +21,11 @@ public final class Context {
     
     // MARK: - Initialization
     
+    deinit {
+     
+        cairo_destroy(internalPointer)
+    }
+    
     public init(surface: Surface) {
         
         // create
@@ -32,4 +37,12 @@ public final class Context {
         self.internalPointer = internalPointer
         self.surface = surface
     }
+    
+    // MARK: - Methods
+    
+    
+    
+    // MARK: - Accessors
+    
+    
 }

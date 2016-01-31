@@ -8,4 +8,7 @@
 
 import CCairo
 
-
+public final class Pattern {
+    
+    
+}

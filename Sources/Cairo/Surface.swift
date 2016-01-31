@@ -23,6 +23,13 @@ public final class Surface {
         cairo_surface_destroy(internalPointer)
     }
     
+    internal init(_ internalPointer: COpaquePointer) {
+        
+        assert(internalPointer != nil, "Internal pointer is nil")
+        
+        self.internalPointer = internalPointer
+    }
+    
     public convenience init(format: ImageFormat, width: Int, height: Int) {
         
         let internalFormat = cairo_format_t(rawValue: format.rawValue)
@@ -32,10 +39,15 @@ public final class Surface {
         self.init(pointer)
     }
     
-    internal init(_ internalPointer: COpaquePointer) {
+    // MARK: - Methods
+    
+    public func flush() {
         
-        assert(internalPointer != nil, "Internal pointer is nil")
+        cairo_surface_flush(internalPointer)
+    }
+    
+    public func markDirty() {
         
-        self.internalPointer = internalPointer
+        cairo_surface_mark_dirty(internalPointer)
     }
 }
