@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E8041561C6036F500FF5717 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041551C6036F500FF5717 /* Content.swift */; };
+		6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041581C60383700FF5717 /* SurfaceType.swift */; };
 		6ECC91B51C5EB901003DE6BA /* Cairo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ECC91B41C5EB901003DE6BA /* Cairo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91B11C5EB901003DE6BA /* Cairo.framework */; };
 		6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC91D31C5EC069003DE6BA /* Surface.swift */; };
@@ -27,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E8041551C6036F500FF5717 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		6E8041571C60377900FF5717 /* cairo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cairo; path = ../../../../../../usr/local/include/cairo; sourceTree = "<group>"; };
+		6E8041581C60383700FF5717 /* SurfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceType.swift; sourceTree = "<group>"; };
 		6ECC91B11C5EB901003DE6BA /* Cairo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cairo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECC91B41C5EB901003DE6BA /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cairo.h; sourceTree = "<group>"; };
 		6ECC91B61C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 		6ECC91B31C5EB901003DE6BA /* Cairo */ = {
 			isa = PBXGroup;
 			children = (
+				6E8041571C60377900FF5717 /* cairo */,
 				6ECC91B41C5EB901003DE6BA /* Cairo.h */,
 				6ECC91CB1C5EBB44003DE6BA /* module.map */,
 				6ECC91B61C5EB901003DE6BA /* Info.plist */,
@@ -115,6 +121,8 @@
 				6ECC91D31C5EC069003DE6BA /* Surface.swift */,
 				6ECC91DA1C5EC90A003DE6BA /* ImageFormat.swift */,
 				6ECC91DC1C5ECC13003DE6BA /* Pattern.swift */,
+				6E8041551C6036F500FF5717 /* Content.swift */,
+				6E8041581C60383700FF5717 /* SurfaceType.swift */,
 			);
 			path = Cairo;
 			sourceTree = "<group>";
@@ -251,8 +259,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ECC91DB1C5EC90A003DE6BA /* ImageFormat.swift in Sources */,
+				6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */,
 				6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */,
 				6ECC91DD1C5ECC13003DE6BA /* Pattern.swift in Sources */,
+				6E8041561C6036F500FF5717 /* Content.swift in Sources */,
 				6ECC91D61C5EC1F0003DE6BA /* Context.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

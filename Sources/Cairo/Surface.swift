@@ -50,4 +50,18 @@ public final class Surface {
         
         cairo_surface_mark_dirty(internalPointer)
     }
+    
+    // MARK: - Accessors
+    
+    public var type: SurfaceType {
+        
+        let value = cairo_surface_get_type(internalPointer)
+        
+        guard let surfaceType = SurfaceType(rawValue: value.rawValue)
+            else { fatalError("Invalid surface type: \(value)") }
+        
+        return surfaceType
+    }
+    
+    
 }
