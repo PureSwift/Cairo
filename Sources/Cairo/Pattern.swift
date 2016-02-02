@@ -10,5 +10,28 @@ import CCairo
 
 public final class Pattern {
     
+    // MARK: - Internal Properties
     
+    internal var internalPointer: COpaquePointer
+    
+    // MARK: - Initialization
+    
+    deinit {
+        
+        cairo_pattern_destroy(internalPointer)
+    }
+    
+    internal init(_ internalPointer: COpaquePointer) {
+        
+        assert(internalPointer != nil, "Internal pointer must not be nil")
+        
+        self.internalPointer = internalPointer
+    }
+    
+    public convenience init(surface: Surface) {
+        
+        let internalPointer = cairo_pattern_create_for_surface(surface.internalPointer)
+        
+        self.init(internalPointer)
+    }
 }

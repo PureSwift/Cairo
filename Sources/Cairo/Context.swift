@@ -57,6 +57,14 @@ public final class Context {
         cairo_restore(internalPointer)
     }
     
+    /// Temporarily redirects drawing to an intermediate surface known as a group. 
+    /// The redirection lasts until the group is completed by a call to `popGroup()`.
+    /// These calls provide the result of any drawing to the group as a pattern, 
+    /// (either as an explicit object, or set as the source pattern).
+    ///
+    /// This group functionality can be convenient for performing intermediate compositing. 
+    /// One common use of a group is to render objects as opaque within the group, 
+    /// (so that they occlude each other), and then blend the result with translucence onto the destination.
     public func pushGroup(content: Content? = nil) {
         
         if let content = content {
@@ -69,8 +77,45 @@ public final class Context {
         }
     }
     
+    /// Terminates the redirection begun by a call to `pushGroup()` and 
+    /// returns a new pattern containing the results of all drawing operations performed to the group.
+    public func popGroup() -> Pattern {
+        
+        let patternPointer = cairo_pop_group(internalPointer)
+        
+        let pattern = Pattern(patternPointer)
+        
+        return pattern
+    }
+    
+    /// Terminates the redirection begun by a call to `pushGroup()` 
+    /// and installs the resulting pattern as the source pattern in the given context.
+    public func popGroupToSource() {
+        
+        cairo_pop_group_to_source(internalPointer)
+    }
+    
+    public func setSourceColor(red: Double, green: Double, blue: Double) {
+        
+        cairo_set_source_rgb(internalPointer, red, green, blue)
+    }
+    
     // MARK: - Accessors
+    
+    /// Gets the current destination surface for the context. 
+    ///
+    /// This is either the original target surface or the target surface for the current group 
+    /// as started by the most recent call to `pushGroup()`.
+    public var groupTarget: Surface {
+        
+        let surfacePointer = cairo_get_group_target(internalPointer)
+        
+        let surface = Surface(surfacePointer)
+        
+        return surface
+    }
     
     
     
 }
+
