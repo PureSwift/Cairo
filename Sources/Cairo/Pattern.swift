@@ -8,6 +8,9 @@
 
 import CCairo
 
+/// Represents a source when drawing onto a surface. 
+///
+/// There are different subtypes of patterns, for different types of sources.
 public final class Pattern {
     
     // MARK: - Internal Properties
@@ -34,4 +37,39 @@ public final class Pattern {
         
         self.init(internalPointer)
     }
+    
+    public convenience init(linear: (origin: (x: Double, y: Double), destination: (x: Double, y: Double))) {
+        
+        let internalPointer = cairo_pattern_create_linear(linear.origin.x, linear.origin.y, linear.destination.x, linear.destination.y)
+        
+        self.init(internalPointer)
+    }
+    
+    public static var mesh: Pattern {
+        
+        let internalPointer = cairo_pattern_create_mesh()
+        
+        return self.init(internalPointer)
+    }
+    
+    // MARK: - Accessors
+    
+    public var type: PatternType {
+        
+        let internalPattern = cairo_pattern_get_type(internalPointer)
+        
+        let pattern = PatternType(rawValue: internalPattern.rawValue)!
+        
+        return pattern
+    }
 }
+
+
+// MARK: - Supporting Types
+
+/// Subtypes of `Pattern`
+public enum PatternType: UInt32 {
+    
+    case Solid, Surface, Linear, Radial, Mesh, RasterSource
+}
+

@@ -123,9 +123,9 @@
 				6ECC91D31C5EC069003DE6BA /* Surface.swift */,
 				6ECC91DA1C5EC90A003DE6BA /* ImageFormat.swift */,
 				6ECC91DC1C5ECC13003DE6BA /* Pattern.swift */,
+				6E0B0E311C6440F2007BB59B /* Path.swift */,
 				6E8041551C6036F500FF5717 /* Content.swift */,
 				6E8041581C60383700FF5717 /* SurfaceType.swift */,
-				6E0B0E311C6440F2007BB59B /* Path.swift */,
 			);
 			path = Cairo;
 			sourceTree = "<group>";

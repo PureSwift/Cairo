@@ -110,9 +110,16 @@ public final class Context {
         cairo_fill(internalPointer)
     }
     
-    public func paint(alpha: Double) {
+    public func paint(alpha: Double? = nil) {
         
-        cairo_paint(internalPointer)
+        if let alpha = alpha {
+            
+            cairo_paint_with_alpha(internalPointer, alpha)
+        }
+        else {
+            
+            cairo_paint(internalPointer)
+        }
     }
     
     /// Adds a closed sub-path rectangle of the given size to the current path at position (x , y ) in user-space coordinates.
