@@ -100,6 +100,11 @@ public final class Context {
         cairo_set_source_rgb(internalPointer, red, green, blue)
     }
     
+    public func setSourceColor(red red: Double, green: Double, blue: Double, alpha: Double) {
+        
+        cairo_set_source_rgba(internalPointer, red, green, blue, alpha)
+    }
+    
     public func stroke() {
         
         cairo_stroke(internalPointer)

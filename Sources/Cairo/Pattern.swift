@@ -38,9 +38,9 @@ public final class Pattern {
         self.init(internalPointer)
     }
     
-    public convenience init(linear: (origin: (x: Double, y: Double), destination: (x: Double, y: Double))) {
+    public convenience init(linear: ((Double, Double), (Double, Double))) {
         
-        let internalPointer = cairo_pattern_create_linear(linear.origin.x, linear.origin.y, linear.destination.x, linear.destination.y)
+        let internalPointer = cairo_pattern_create_linear(linear.0.0, linear.0.1, linear.1.0, linear.1.1)
         
         self.init(internalPointer)
     }
