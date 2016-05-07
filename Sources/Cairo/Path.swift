@@ -23,8 +23,6 @@ public final class Path {
     
     internal init(_ internalPointer: UnsafeMutablePointer<cairo_path_t>) {
         
-        assert(internalPointer != nil)
-        
         self.internalPointer = internalPointer
     }
 }

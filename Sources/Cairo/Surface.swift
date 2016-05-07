@@ -12,21 +12,17 @@ public final class Surface {
     
     // MARK: - Internal Properties
     
-    internal var internalPointer: COpaquePointer
+    internal var internalPointer: OpaquePointer
     
     // MARK: - Initialization
     
     deinit {
         
-        assert(internalPointer != nil, "Internal pointer of deallocating object is nil")
-        
         cairo_surface_destroy(internalPointer)
     }
     
-    internal init(_ internalPointer: COpaquePointer) {
-        
-        assert(internalPointer != nil, "Internal pointer is nil")
-        
+    internal init(_ internalPointer: OpaquePointer) {
+                
         self.internalPointer = internalPointer
     }
     

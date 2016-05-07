@@ -17,7 +17,7 @@ public final class Context {
     
     // MARK: - Internal Properties
     
-    internal var internalPointer: COpaquePointer
+    internal var internalPointer: OpaquePointer
     
     // MARK: - Initialization
     
@@ -95,12 +95,12 @@ public final class Context {
         cairo_pop_group_to_source(internalPointer)
     }
     
-    public func setSourceColor(red red: Double, green: Double, blue: Double) {
+    public func setSourceColor(red: Double, green: Double, blue: Double) {
         
         cairo_set_source_rgb(internalPointer, red, green, blue)
     }
     
-    public func setSourceColor(red red: Double, green: Double, blue: Double, alpha: Double) {
+    public func setSourceColor(red: Double, green: Double, blue: Double, alpha: Double) {
         
         cairo_set_source_rgba(internalPointer, red, green, blue, alpha)
     }
@@ -128,7 +128,7 @@ public final class Context {
     }
     
     /// Adds a closed sub-path rectangle of the given size to the current path at position (x , y ) in user-space coordinates.
-    public func addRectangle(x x: Double, y: Double, width: Double, height: Double) {
+    public func addRectangle(x: Double, y: Double, width: Double, height: Double) {
         
         cairo_rectangle(internalPointer, x, y, width, height)
     }

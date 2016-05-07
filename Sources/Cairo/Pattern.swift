@@ -15,7 +15,7 @@ public final class Pattern {
     
     // MARK: - Internal Properties
     
-    internal var internalPointer: COpaquePointer
+    internal var internalPointer: OpaquePointer
     
     // MARK: - Initialization
     
@@ -24,9 +24,7 @@ public final class Pattern {
         cairo_pattern_destroy(internalPointer)
     }
     
-    internal init(_ internalPointer: COpaquePointer) {
-        
-        assert(internalPointer != nil, "Internal pointer must not be nil")
+    internal init(_ internalPointer: OpaquePointer) {
         
         self.internalPointer = internalPointer
     }
