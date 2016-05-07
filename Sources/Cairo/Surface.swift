@@ -22,17 +22,20 @@ public final class Surface {
     }
     
     internal init(_ internalPointer: OpaquePointer) {
-                
+        
         self.internalPointer = internalPointer
     }
     
-    public convenience init(format: ImageFormat, width: Int, height: Int) {
+    public init(format: ImageFormat, width: Int, height: Int) {
         
         let internalFormat = cairo_format_t(rawValue: format.rawValue)
         
-        let pointer = cairo_image_surface_create(internalFormat, Int32(width), Int32(height))
+        self.internalPointer = cairo_image_surface_create(internalFormat, Int32(width), Int32(height))
+    }
+    
+    public init(svg filename: String, width: Double, height: Double) {
         
-        self.init(pointer)
+        self.internalPointer = cairo_svg_surface_create(filename, width, height)
     }
     
     // MARK: - Methods

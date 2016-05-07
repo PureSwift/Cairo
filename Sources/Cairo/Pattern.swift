@@ -29,18 +29,19 @@ public final class Pattern {
         self.internalPointer = internalPointer
     }
     
-    public convenience init(surface: Surface) {
+    public init(surface: Surface) {
         
-        let internalPointer = cairo_pattern_create_for_surface(surface.internalPointer)
-        
-        self.init(internalPointer)
+        self.internalPointer = cairo_pattern_create_for_surface(surface.internalPointer)
     }
     
-    public convenience init(linear: ((Double, Double), (Double, Double))) {
+    public init(linear: ((Double, Double), (Double, Double))) {
         
-        let internalPointer = cairo_pattern_create_linear(linear.0.0, linear.0.1, linear.1.0, linear.1.1)
+        self.internalPointer = cairo_pattern_create_linear(linear.0.0, linear.0.1, linear.1.0, linear.1.1)
+    }
+    
+    public init(radial: (start: (center: (x: Double, y: Double), radius: Double), end: (center: (x: Double, y: Double), radius: Double))) {
         
-        self.init(internalPointer)
+        self.internalPointer = cairo_pattern_create_radial(radial.start.center.x, radial.start.center.y, radial.start.radius, radial.end.center.x, radial.end.center.y, radial.end.radius)
     }
     
     public static var mesh: Pattern {
@@ -59,6 +60,20 @@ public final class Pattern {
         let pattern = PatternType(rawValue: internalPattern.rawValue)!
         
         return pattern
+    }
+    
+    // MARK: - Methods
+    
+    /// Adds an opaque color stop to a gradient pattern.
+    public func addColorStop(offset: Double, red: Double, green: Double, blue: Double) {
+        
+        cairo_pattern_add_color_stop_rgb(internalPointer, offset, red, green, blue)
+    }
+    
+    /// Adds an opaque color stop to a gradient pattern.
+    public func addColorStop(offset: Double, red: Double, green: Double, blue: Double, alpha: Double) {
+        
+        cairo_pattern_add_color_stop_rgba(internalPointer, offset, red, green, blue, alpha)
     }
 }
 
