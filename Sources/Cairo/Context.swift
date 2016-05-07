@@ -95,14 +95,19 @@ public final class Context {
         cairo_pop_group_to_source(internalPointer)
     }
     
-    public func setSourceColor(red: Double, green: Double, blue: Double) {
+    public func setSource(color: (red: Double, green: Double, blue: Double)) {
         
-        cairo_set_source_rgb(internalPointer, red, green, blue)
+        cairo_set_source_rgb(internalPointer, color.red, color.green, color.blue)
     }
     
-    public func setSourceColor(red: Double, green: Double, blue: Double, alpha: Double) {
+    public func setSource(color: (red: Double, green: Double, blue: Double, alpha: Double)) {
         
-        cairo_set_source_rgba(internalPointer, red, green, blue, alpha)
+        cairo_set_source_rgba(internalPointer, color.red, color.green, color.blue, color.alpha)
+    }
+    
+    public func setSource(pattern: Pattern) {
+        
+        cairo_set_source(internalPointer, pattern.internalPointer)
     }
     
     public func stroke() {
@@ -127,7 +132,7 @@ public final class Context {
         }
     }
     
-    /// Adds a closed sub-path rectangle of the given size to the current path at position (x , y ) in user-space coordinates.
+    /// Adds a closed sub-path rectangle of the given size to the current path at position `(x , y)` in user-space coordinates.
     public func addRectangle(x: Double, y: Double, width: Double, height: Double) {
         
         cairo_rectangle(internalPointer, x, y, width, height)
@@ -176,6 +181,26 @@ public final class Context {
         let pathPointer = cairo_copy_path_flat(internalPointer)
         
         return Path(pathPointer)
+    }
+    
+    public func setFont(size: Double) {
+        
+        cairo_set_font_size(internalPointer, size)
+    }
+    
+    public func setFont(face: (family: String, slant: FontSlant, weight: FontWeight)) {
+        
+        cairo_select_font_face(internalPointer, face.family, cairo_font_slant_t(face.slant.rawValue), cairo_font_weight_t(face.weight.rawValue))
+    }
+    
+    public func move(to coordinate: (x: Double, y: Double)) {
+        
+        cairo_move_to(internalPointer, coordinate.x, coordinate.y)
+    }
+    
+    public func show(text: String) {
+        
+        cairo_show_text(internalPointer, text)
     }
     
     // MARK: - Accessors

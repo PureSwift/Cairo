@@ -8,9 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		6E0B0E321C6440F2007BB59B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B0E311C6440F2007BB59B /* Path.swift */; };
+		6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0F41961CDE8FEC0001E5B3 /* Font.swift */; };
+		6E339B5B1CDF3B35008E399E /* CairoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E339B5A1CDF3B35008E399E /* CairoTest.m */; };
+		6E339B5E1CDF3F5C008E399E /* libcairo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */; };
+		6E49C1141CDE75110071780D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1131CDE75110071780D /* AppDelegate.swift */; };
+		6E49C1161CDE75110071780D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1151CDE75110071780D /* ViewController.swift */; };
+		6E49C1181CDE75110071780D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E49C1171CDE75110071780D /* Assets.xcassets */; };
+		6E49C11B1CDE75110071780D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E49C1191CDE75110071780D /* Main.storyboard */; };
+		6E49C1211CDE7A0A0071780D /* CairoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1201CDE7A0A0071780D /* CairoTests.swift */; };
 		6E8041561C6036F500FF5717 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041551C6036F500FF5717 /* Content.swift */; };
 		6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041581C60383700FF5717 /* SurfaceType.swift */; };
-		6ECC91B51C5EB901003DE6BA /* Cairo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ECC91B41C5EB901003DE6BA /* Cairo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91B11C5EB901003DE6BA /* Cairo.framework */; };
 		6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC91D31C5EC069003DE6BA /* Surface.swift */; };
 		6ECC91D61C5EC1F0003DE6BA /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC91D51C5EC1F0003DE6BA /* Context.swift */; };
@@ -31,11 +38,21 @@
 
 /* Begin PBXFileReference section */
 		6E0B0E311C6440F2007BB59B /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		6E0F41961CDE8FEC0001E5B3 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		6E339B581CDF3B35008E399E /* CairoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CairoTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		6E339B591CDF3B35008E399E /* CairoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CairoTest.h; sourceTree = "<group>"; };
+		6E339B5A1CDF3B35008E399E /* CairoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CairoTest.m; sourceTree = "<group>"; };
+		6E49C1111CDE75110071780D /* CairoExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CairoExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E49C1131CDE75110071780D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6E49C1151CDE75110071780D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6E49C1171CDE75110071780D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E49C11A1CDE75110071780D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6E49C11C1CDE75110071780D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E49C1201CDE7A0A0071780D /* CairoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CairoTests.swift; sourceTree = "<group>"; };
 		6E8041551C6036F500FF5717 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		6E8041571C60377900FF5717 /* cairo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cairo; path = ../../../../../../usr/local/include/cairo; sourceTree = "<group>"; };
 		6E8041581C60383700FF5717 /* SurfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceType.swift; sourceTree = "<group>"; };
 		6ECC91B11C5EB901003DE6BA /* Cairo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cairo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ECC91B41C5EB901003DE6BA /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cairo.h; sourceTree = "<group>"; };
 		6ECC91B61C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ECC91BB1C5EB901003DE6BA /* CairoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CairoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECC91C21C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +65,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6E49C10E1CDE75110071780D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6ECC91AD1C5EB901003DE6BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,12 +85,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */,
+				6E339B5E1CDF3F5C008E399E /* libcairo.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E49C1121CDE75110071780D /* CairoExample */ = {
+			isa = PBXGroup;
+			children = (
+				6E49C1131CDE75110071780D /* AppDelegate.swift */,
+				6E49C1151CDE75110071780D /* ViewController.swift */,
+				6E49C1171CDE75110071780D /* Assets.xcassets */,
+				6E49C1191CDE75110071780D /* Main.storyboard */,
+				6E49C11C1CDE75110071780D /* Info.plist */,
+			);
+			path = CairoExample;
+			sourceTree = "<group>";
+		};
 		6ECC91A71C5EB901003DE6BA = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +111,7 @@
 				6ECC91CC1C5EBB63003DE6BA /* Sources */,
 				6ECC91B31C5EB901003DE6BA /* Cairo */,
 				6ECC91BF1C5EB901003DE6BA /* CairoTests */,
+				6E49C1121CDE75110071780D /* CairoExample */,
 				6ECC91B21C5EB901003DE6BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,6 +121,7 @@
 			children = (
 				6ECC91B11C5EB901003DE6BA /* Cairo.framework */,
 				6ECC91BB1C5EB901003DE6BA /* CairoTests.xctest */,
+				6E49C1111CDE75110071780D /* CairoExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				6E8041571C60377900FF5717 /* cairo */,
-				6ECC91B41C5EB901003DE6BA /* Cairo.h */,
 				6ECC91CB1C5EBB44003DE6BA /* module.map */,
 				6ECC91B61C5EB901003DE6BA /* Info.plist */,
 			);
@@ -126,6 +164,7 @@
 				6E0B0E311C6440F2007BB59B /* Path.swift */,
 				6E8041551C6036F500FF5717 /* Content.swift */,
 				6E8041581C60383700FF5717 /* SurfaceType.swift */,
+				6E0F41961CDE8FEC0001E5B3 /* Font.swift */,
 			);
 			path = Cairo;
 			sourceTree = "<group>";
@@ -133,6 +172,10 @@
 		6ECC91CE1C5EBB77003DE6BA /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				6E339B581CDF3B35008E399E /* CairoTests-Bridging-Header.h */,
+				6E49C1201CDE7A0A0071780D /* CairoTests.swift */,
+				6E339B591CDF3B35008E399E /* CairoTest.h */,
+				6E339B5A1CDF3B35008E399E /* CairoTest.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -160,13 +203,29 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ECC91B51C5EB901003DE6BA /* Cairo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6E49C1101CDE75110071780D /* CairoExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E49C11F1CDE75110071780D /* Build configuration list for PBXNativeTarget "CairoExample" */;
+			buildPhases = (
+				6E49C10D1CDE75110071780D /* Sources */,
+				6E49C10E1CDE75110071780D /* Frameworks */,
+				6E49C10F1CDE75110071780D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CairoExample;
+			productName = CairoExample;
+			productReference = 6E49C1111CDE75110071780D /* CairoExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6ECC91B01C5EB901003DE6BA /* Cairo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6ECC91C51C5EB901003DE6BA /* Build configuration list for PBXNativeTarget "Cairo" */;
@@ -209,10 +268,13 @@
 		6ECC91A81C5EB901003DE6BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = PureSwift;
 				TargetAttributes = {
+					6E49C1101CDE75110071780D = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					6ECC91B01C5EB901003DE6BA = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -227,6 +289,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 6ECC91A71C5EB901003DE6BA;
 			productRefGroup = 6ECC91B21C5EB901003DE6BA /* Products */;
@@ -235,11 +298,21 @@
 			targets = (
 				6ECC91B01C5EB901003DE6BA /* Cairo */,
 				6ECC91BA1C5EB901003DE6BA /* CairoTests */,
+				6E49C1101CDE75110071780D /* CairoExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6E49C10F1CDE75110071780D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E49C1181CDE75110071780D /* Assets.xcassets in Resources */,
+				6E49C11B1CDE75110071780D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6ECC91AF1C5EB901003DE6BA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,6 +330,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6E49C10D1CDE75110071780D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E49C1161CDE75110071780D /* ViewController.swift in Sources */,
+				6E49C1141CDE75110071780D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6ECC91AC1C5EB901003DE6BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,6 +347,7 @@
 				6E0B0E321C6440F2007BB59B /* Path.swift in Sources */,
 				6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */,
 				6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */,
+				6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */,
 				6ECC91DD1C5ECC13003DE6BA /* Pattern.swift in Sources */,
 				6E8041561C6036F500FF5717 /* Content.swift in Sources */,
 				6ECC91D61C5EC1F0003DE6BA /* Context.swift in Sources */,
@@ -275,6 +358,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E339B5B1CDF3B35008E399E /* CairoTest.m in Sources */,
+				6E49C1211CDE7A0A0071780D /* CairoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +373,46 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		6E49C1191CDE75110071780D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E49C11A1CDE75110071780D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		6E49C11D1CDE75110071780D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CairoExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CairoExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6E49C11E1CDE75110071780D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CairoExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CairoExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		6ECC91C31C5EB901003DE6BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -370,6 +494,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -423,28 +548,50 @@
 		6ECC91C91C5EB901003DE6BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.CairoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = $SRCROOT;
+				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/UnitTests/CairoTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		6ECC91CA1C5EB901003DE6BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.CairoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = $SRCROOT;
+				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/UnitTests/CairoTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6E49C11F1CDE75110071780D /* Build configuration list for PBXNativeTarget "CairoExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E49C11D1CDE75110071780D /* Debug */,
+				6E49C11E1CDE75110071780D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6ECC91AB1C5EB901003DE6BA /* Build configuration list for PBXProject "Cairo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
