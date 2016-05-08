@@ -10,67 +10,70 @@ import XCTest
 import Cairo
 
 final class CairoTests: XCTestCase {
-
-    func testHelloWikipedia() {
-        
-        let filename = outputDirectory + "helloWiki.svg"
-        
-        print("Writing to \(filename)")
-        
-        //let surface = Surface
-        let surface = Surface(pdf: filename, width: 100, height: 100)
-        let context = Context(surface: surface)
-        
-        /// Draw the squares in the background
-        for x in 0 ..< 10 {
-            
-            for y in 0 ..< 10 {
-                
-                context.addRectangle(x: Double(x) * 10.0, y: Double(y) * 10.0, width: 5.0, height: 5.0)
-            }
-        }
-        
-        let pattern = Cairo.Pattern(radial: (start: (center: (x: 50, y: 50), radius: 5), end: (center: (x: 50, y: 50), radius: 5)))
-        
-        pattern.addColorStop(offset: 0.0, red: 0.75, green: 0.15, blue: 0.99)
-        
-        pattern.addColorStop(offset: 0.9, red: 1.00, green: 1.00, blue: 1.00)
-        
-        context.setSource(pattern: pattern)
-        
-        context.fill()
-        
-        // Writing in the foreground
-        
-        context.setFont(size: 15.0)
-        
-        context.setFont(face: (family: "Georgia", slant: .normal, weight: .bold))
-        
-        context.setSource(color: (red: 0, green: 0, blue: 0))
-        
-        context.move(to: (x: 10, y: 25))
-        context.show(text: "Hallo!")
-        
-        context.move(to: (x: 10, y: 75))
-        context.show(text: "Wikipedia!")
-        
-        //let originalFile = outputDirectory + "helloWiki2.svg"
-        
-        //CairoTest.helloWikipedia(originalFile)
-    }
     
     func testSourceX() {
         
+        // write original
+        
         let filename = outputDirectory + "sourceX.png"
         
-        print("Writing to \(filename)")
-        
         CairoTest.sourceX(filename)
+        
+        print("Wrote original to \(filename)")
+        
+        // write swift copy
+        
+        let testFilename = outputDirectory + "sourceXTest.png"
+        
+        let surface = Surface(format: .ARGB32, width: 120, height: 120)
+        
+        let context = Cairo.Context(surface: surface)
+        
+        // Examples are in 1.0 x 1.0 coordinate space
+        context.scale(x: 120, y: 120)
+        
+        // Drawing code goes here
+        context.setSource(color: (red: 0, green: 0, blue: 0))
+        context.move(to: (x: 0, y: 0))
+        context.line(to: (x: 1, y: 1))
+        context.move(to: (x: 1, y: 0))
+        context.line(to: (x: 0, y: 1))
+        context.lineWidth = 0.2
+        context.stroke()
+        
+        context.addRectangle(x: 0, y: 0, width: 0.5, height: 0.5)
+        context.setSource(color: (red: 1, green: 0, blue: 0, alpha: 0.8))
+        context.fill()
+        
+        context.addRectangle(x: 0, y: 0.5, width: 0.5, height: 0.5)
+        context.setSource(color: (red: 0, green: 1, blue: 0, alpha: 0.6))
+        context.fill()
+        
+        context.addRectangle(x: 0.5, y: 0, width: 0.5, height: 0.5)
+        context.setSource(color: (red: 0, green: 0, blue: 1, alpha: 0.4))
+        context.fill()
+        
+        surface.writePNG(to: testFilename)
+        
+        print("Wrote test to \(testFilename)")
+        
+        let fileData = NSData(contentsOfFile: filename)
+        let testFileData = NSData(contentsOfFile: testFilename)
+        
+        XCTAssert(fileData == testFileData)
     }
 }
 
-#if os(OSX)
-let outputDirectory = NSTemporaryDirectory()
-#elseif os(Linux)
-let outputDirectory = "/tmp/"
-#endif
+let outputDirectory: String = {
+   
+    let outputDirectory = NSTemporaryDirectory() + "CairoSwiftTest" + "/"
+    
+    var isDirectory: ObjCBool = false
+    
+    if NSFileManager.default().fileExists(atPath: outputDirectory, isDirectory: &isDirectory) == false {
+        
+        try! NSFileManager.default().createDirectory(atPath: outputDirectory, withIntermediateDirectories: false)
+    }
+    
+    return outputDirectory
+}()
