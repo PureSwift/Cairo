@@ -34,7 +34,6 @@ public final class Context {
         let internalPointer = cairo_create(surface.internalPointer)
         
         assert(internalPointer != nil, "Could not create internal pointer")
-        
         // set values
         self.internalPointer = internalPointer
         self.surface = surface
@@ -235,6 +234,23 @@ public final class Context {
         set { cairo_set_line_width(internalPointer, newValue) }
     }
     
+    public var status: cairo_status_t {
+        
+        return cairo_status(internalPointer)
+    }
+}
+
+extension cairo_status_t: ErrorProtocol { }
+
+extension cairo_status_t: CustomStringConvertible {
     
+    public var description: String {
+        
+        let cString = cairo_status_to_string(self)
+        
+        let string = String(cString: cString)
+        
+        return string
+    }
 }
 
