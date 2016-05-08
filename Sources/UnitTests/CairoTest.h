@@ -12,4 +12,6 @@
 
 + (void)helloWikipedia:(NSString *)filename;
 
++ (void)sourceX:(NSString *)filename;
+
 @end

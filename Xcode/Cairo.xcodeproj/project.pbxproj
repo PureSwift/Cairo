@@ -172,8 +172,8 @@
 		6ECC91CE1C5EBB77003DE6BA /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				6E339B581CDF3B35008E399E /* CairoTests-Bridging-Header.h */,
 				6E49C1201CDE7A0A0071780D /* CairoTests.swift */,
+				6E339B581CDF3B35008E399E /* CairoTests-Bridging-Header.h */,
 				6E339B591CDF3B35008E399E /* CairoTest.h */,
 				6E339B5A1CDF3B35008E399E /* CairoTest.m */,
 			);
