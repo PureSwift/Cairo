@@ -104,11 +104,6 @@ public final class Context {
         cairo_set_source_rgba(internalPointer, color.red, color.green, color.blue, color.alpha)
     }
     
-    public func setSource(pattern: Pattern) {
-        
-        cairo_set_source(internalPointer, pattern.internalPointer)
-    }
-    
     public func stroke() {
         
         cairo_stroke(internalPointer)
@@ -214,6 +209,23 @@ public final class Context {
     
     // MARK: - Accessors
     
+    public var source: Pattern {
+        
+        get {
+            
+            let patternPointer = cairo_get_source(internalPointer)
+            
+            cairo_pattern_reference(patternPointer)
+            
+            return Pattern(patternPointer)
+        }
+        
+        set {
+            
+            cairo_set_source(internalPointer, newValue.internalPointer)
+        }
+    }
+    
     /// Gets the current destination surface for the context. 
     ///
     /// This is either the original target surface or the target surface for the current group 
@@ -234,23 +246,9 @@ public final class Context {
         set { cairo_set_line_width(internalPointer, newValue) }
     }
     
-    public var status: cairo_status_t {
+    public var status: Status {
         
         return cairo_status(internalPointer)
-    }
-}
-
-extension cairo_status_t: ErrorProtocol { }
-
-extension cairo_status_t: CustomStringConvertible {
-    
-    public var description: String {
-        
-        let cString = cairo_status_to_string(self)
-        
-        let string = String(cString: cString)
-        
-        return string
     }
 }
 

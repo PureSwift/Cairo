@@ -34,9 +34,19 @@ public final class Pattern {
         self.internalPointer = cairo_pattern_create_for_surface(surface.internalPointer)
     }
     
-    public init(linear: ((Double, Double), (Double, Double))) {
+    public init(color: (red: Double, green: Double, blue: Double)) {
         
-        self.internalPointer = cairo_pattern_create_linear(linear.0.0, linear.0.1, linear.1.0, linear.1.1)
+        self.internalPointer = cairo_pattern_create_rgb(color.red, color.green, color.blue)
+    }
+    
+    public init(color: (red: Double, green: Double, blue: Double, alpha: Double)) {
+        
+        self.internalPointer = cairo_pattern_create_rgba(color.red, color.green, color.blue, color.alpha)
+    }
+    
+    public init(linear: (origin: (x: Double, y: Double), destination: (x: Double, y: Double))) {
+        
+        self.internalPointer = cairo_pattern_create_linear(linear.origin.x, linear.origin.y, linear.destination.x, linear.destination.y)
     }
     
     public init(radial: (start: (center: (x: Double, y: Double), radius: Double), end: (center: (x: Double, y: Double), radius: Double))) {
@@ -60,6 +70,11 @@ public final class Pattern {
         let pattern = PatternType(rawValue: internalPattern.rawValue)!
         
         return pattern
+    }
+    
+    public var status: Status {
+        
+        return cairo_pattern_status(internalPointer)
     }
     
     // MARK: - Methods
