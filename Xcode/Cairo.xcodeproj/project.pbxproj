@@ -48,7 +48,6 @@
 		6E49C1201CDE7A0A0071780D /* CairoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CairoTests.swift; sourceTree = "<group>"; };
 		6E49C1221CDE7A440071780D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6E8041551C6036F500FF5717 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
-		6E8041571C60377900FF5717 /* cairo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cairo; path = ../../../../../../usr/local/include/cairo; sourceTree = "<group>"; };
 		6E8041581C60383700FF5717 /* SurfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceType.swift; sourceTree = "<group>"; };
 		6ECC91B11C5EB901003DE6BA /* Cairo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cairo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECC91B41C5EB901003DE6BA /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cairo.h; sourceTree = "<group>"; };
@@ -127,7 +126,6 @@
 		6ECC91B31C5EB901003DE6BA /* Cairo */ = {
 			isa = PBXGroup;
 			children = (
-				6E8041571C60377900FF5717 /* cairo */,
 				6ECC91B41C5EB901003DE6BA /* Cairo.h */,
 				6ECC91CB1C5EBB44003DE6BA /* module.map */,
 				6ECC91B61C5EB901003DE6BA /* Info.plist */,
