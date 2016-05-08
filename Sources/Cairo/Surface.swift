@@ -38,6 +38,11 @@ public final class Surface {
         self.internalPointer = cairo_svg_surface_create(filename, width, height)
     }
     
+    public init(pdf filename: String, width: Double, height: Double) {
+        
+        self.internalPointer = cairo_pdf_surface_create(filename, width, height)
+    }
+    
     // MARK: - Methods
     
     public func flush() {

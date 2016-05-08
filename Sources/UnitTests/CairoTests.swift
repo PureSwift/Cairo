@@ -11,13 +11,14 @@ import Cairo
 
 final class CairoTests: XCTestCase {
 
-    func testHelloWikipediaSVG() {
+    func testHelloWikipedia() {
         
-        let filename = outputDirectory + "helloWiki.svg"
+        let filename = outputDirectory + "helloWiki.pdf"
         
         print("Writing to \(filename)")
         
-        let surface = Surface(svg: filename, width: 100, height: 100)
+        //let surface = Surface
+        let surface = Surface(pdf: filename, width: 100, height: 100)
         let context = Context(surface: surface)
         
         /// Draw the squares in the background
@@ -54,7 +55,10 @@ final class CairoTests: XCTestCase {
         context.show(text: "Wikipedia!")
     }
     
-    
+    func testCairoSourceX() {
+        
+        
+    }
 }
 
 #if os(OSX)
