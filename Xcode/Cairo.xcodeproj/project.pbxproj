@@ -10,6 +10,7 @@
 		6E0B0E321C6440F2007BB59B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B0E311C6440F2007BB59B /* Path.swift */; };
 		6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0F41961CDE8FEC0001E5B3 /* Font.swift */; };
 		6E339B5B1CDF3B35008E399E /* CairoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E339B5A1CDF3B35008E399E /* CairoTest.m */; };
+		6E339B5E1CDF3F5C008E399E /* libcairo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */; };
 		6E49C1141CDE75110071780D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1131CDE75110071780D /* AppDelegate.swift */; };
 		6E49C1161CDE75110071780D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1151CDE75110071780D /* ViewController.swift */; };
 		6E49C1181CDE75110071780D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E49C1171CDE75110071780D /* Assets.xcassets */; };
@@ -17,7 +18,6 @@
 		6E49C1211CDE7A0A0071780D /* CairoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1201CDE7A0A0071780D /* CairoTests.swift */; };
 		6E8041561C6036F500FF5717 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041551C6036F500FF5717 /* Content.swift */; };
 		6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041581C60383700FF5717 /* SurfaceType.swift */; };
-		6ECC91B51C5EB901003DE6BA /* Cairo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ECC91B41C5EB901003DE6BA /* Cairo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91B11C5EB901003DE6BA /* Cairo.framework */; };
 		6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC91D31C5EC069003DE6BA /* Surface.swift */; };
 		6ECC91D61C5EC1F0003DE6BA /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECC91D51C5EC1F0003DE6BA /* Context.swift */; };
@@ -53,7 +53,6 @@
 		6E8041571C60377900FF5717 /* cairo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cairo; path = ../../../../../../usr/local/include/cairo; sourceTree = "<group>"; };
 		6E8041581C60383700FF5717 /* SurfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceType.swift; sourceTree = "<group>"; };
 		6ECC91B11C5EB901003DE6BA /* Cairo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cairo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ECC91B41C5EB901003DE6BA /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cairo.h; sourceTree = "<group>"; };
 		6ECC91B61C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ECC91BB1C5EB901003DE6BA /* CairoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CairoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECC91C21C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */,
+				6E339B5E1CDF3F5C008E399E /* libcairo.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				6E8041571C60377900FF5717 /* cairo */,
-				6ECC91B41C5EB901003DE6BA /* Cairo.h */,
 				6ECC91CB1C5EBB44003DE6BA /* module.map */,
 				6ECC91B61C5EB901003DE6BA /* Info.plist */,
 			);
@@ -204,7 +203,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ECC91B51C5EB901003DE6BA /* Cairo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,7 +549,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
@@ -567,7 +567,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;

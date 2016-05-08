@@ -18,8 +18,10 @@
     cairo_pattern_t *pattern;
     int x,y;
     
+    const char *cString = [filename cStringUsingEncoding: NSUTF8StringEncoding];
+    
     surface =
-    (cairo_surface_t *)cairo_svg_surface_create("Cairo_example.svg", 100.0, 100.0);
+    (cairo_surface_t *)cairo_svg_surface_create(cString, 100.0, 100.0);
     cr = cairo_create(surface);
     
     /* Draw the squares in the background */

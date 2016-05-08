@@ -13,7 +13,7 @@ final class CairoTests: XCTestCase {
 
     func testHelloWikipedia() {
         
-        let filename = outputDirectory + "helloWiki.pdf"
+        let filename = outputDirectory + "helloWiki.svg"
         
         print("Writing to \(filename)")
         
@@ -53,6 +53,10 @@ final class CairoTests: XCTestCase {
         
         context.move(to: (x: 10, y: 75))
         context.show(text: "Wikipedia!")
+        
+        let originalFile = outputDirectory + "helloWiki2.svg"
+        
+        CairoTest.helloWikipedia(originalFile)
     }
     
     func testCairoSourceX() {
