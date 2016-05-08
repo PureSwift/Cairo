@@ -198,9 +198,19 @@ public final class Context {
         cairo_move_to(internalPointer, coordinate.x, coordinate.y)
     }
     
+    public func line(to coordinate: (x: Double, y: Double)) {
+        
+        cairo_line_to(internalPointer, coordinate.x, coordinate.y)
+    }
+    
     public func show(text: String) {
         
         cairo_show_text(internalPointer, text)
+    }
+    
+    public func scale(x: Double, y: Double) {
+        
+        cairo_scale(internalPointer, x, y)
     }
     
     // MARK: - Accessors

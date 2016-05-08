@@ -55,6 +55,11 @@ public final class Surface {
         cairo_surface_mark_dirty(internalPointer)
     }
     
+    public func writePNG(to filepath: String) {
+        
+        cairo_surface_write_to_png(internalPointer, filepath)
+    }
+    
     // MARK: - Accessors
     
     public var type: SurfaceType {
