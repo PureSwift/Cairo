@@ -226,6 +226,25 @@ public final class Context {
         }
     }
     
+    public var matrix: Matrix {
+        
+        get {
+            
+            var matrix = Matrix()
+            
+            cairo_get_matrix(internalPointer, &matrix)
+            
+            return matrix
+        }
+        
+        set {
+            
+            var copy = newValue
+            
+            cairo_set_matrix(internalPointer, &copy)
+        }
+    }
+    
     /// Gets the current destination surface for the context. 
     ///
     /// This is either the original target surface or the target surface for the current group 

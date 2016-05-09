@@ -13,6 +13,7 @@
 		6E339B5E1CDF3F5C008E399E /* libcairo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */; };
 		6E339B8C1CDFDBD9008E399E /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E339B8B1CDFDBD9008E399E /* Status.swift */; };
 		6E49C1211CDE7A0A0071780D /* CairoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49C1201CDE7A0A0071780D /* CairoTests.swift */; };
+		6E572EBC1CE01FD0002E245A /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E572EBB1CE01FD0002E245A /* Matrix.swift */; };
 		6E8041561C6036F500FF5717 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041551C6036F500FF5717 /* Content.swift */; };
 		6E8041591C60383700FF5717 /* SurfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8041581C60383700FF5717 /* SurfaceType.swift */; };
 		6ECC91BC1C5EB901003DE6BA /* Cairo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECC91B11C5EB901003DE6BA /* Cairo.framework */; };
@@ -41,6 +42,7 @@
 		6E339B5A1CDF3B35008E399E /* CairoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CairoTest.m; sourceTree = "<group>"; };
 		6E339B8B1CDFDBD9008E399E /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		6E49C1201CDE7A0A0071780D /* CairoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CairoTests.swift; sourceTree = "<group>"; };
+		6E572EBB1CE01FD0002E245A /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		6E8041551C6036F500FF5717 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		6E8041571C60377900FF5717 /* cairo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cairo; path = ../../../../../../usr/local/include/cairo; sourceTree = "<group>"; };
 		6E8041581C60383700FF5717 /* SurfaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceType.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				6E8041551C6036F500FF5717 /* Content.swift */,
 				6E8041581C60383700FF5717 /* SurfaceType.swift */,
 				6E0F41961CDE8FEC0001E5B3 /* Font.swift */,
+				6E572EBB1CE01FD0002E245A /* Matrix.swift */,
 			);
 			path = Cairo;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				6ECC91D41C5EC069003DE6BA /* Surface.swift in Sources */,
 				6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */,
 				6E339B8C1CDFDBD9008E399E /* Status.swift in Sources */,
+				6E572EBC1CE01FD0002E245A /* Matrix.swift in Sources */,
 				6ECC91DD1C5ECC13003DE6BA /* Pattern.swift in Sources */,
 				6E8041561C6036F500FF5717 /* Content.swift in Sources */,
 				6ECC91D61C5EC1F0003DE6BA /* Context.swift in Sources */,
