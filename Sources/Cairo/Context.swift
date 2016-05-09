@@ -114,6 +114,21 @@ public final class Context {
         cairo_fill(internalPointer)
     }
     
+    public func fillPreserve() {
+        
+        cairo_fill_preserve(internalPointer)
+    }
+    
+    public func clip() {
+        
+        cairo_clip(internalPointer)
+    }
+    
+    public func clipPreserve() {
+        
+        cairo_clip_preserve(internalPointer)
+    }
+    
     public func paint(alpha: Double? = nil) {
         
         if let alpha = alpha {
@@ -187,6 +202,13 @@ public final class Context {
         cairo_select_font_face(internalPointer, face.family, cairo_font_slant_t(face.slant.rawValue), cairo_font_weight_t(face.weight.rawValue))
     }
     
+    public func setFont(matrix: Matrix) {
+        
+        var copy = matrix
+        
+        cairo_set_font_matrix(internalPointer, &copy)
+    }
+    
     public func move(to coordinate: (x: Double, y: Double)) {
         
         cairo_move_to(internalPointer, coordinate.x, coordinate.y)
@@ -197,9 +219,22 @@ public final class Context {
         cairo_line_to(internalPointer, coordinate.x, coordinate.y)
     }
     
+    public func curve(to controlPoints: (first: (x: Double, y: Double), second: (x: Double, y: Double), end: (x: Double, y: Double))) {
+        
+        cairo_curve_to(internalPointer, controlPoints.first.x, controlPoints.first.y, controlPoints.second.x, controlPoints.second.y, controlPoints.first.x, controlPoints.end.y)
+    }
+    
     public func show(text: String) {
         
         cairo_show_text(internalPointer, text)
+    }
+    
+    public func show(glyph: cairo_glyph_t) {
+        
+        var copy = glyph
+        
+        // due to bug, better to show one at a time
+        cairo_show_glyphs(internalPointer, &copy, 1)
     }
     
     public func scale(x: Double, y: Double) {
@@ -207,7 +242,63 @@ public final class Context {
         cairo_scale(internalPointer, x, y)
     }
     
+    public func translate(x: Double, y: Double) {
+        
+        cairo_translate(internalPointer, x, y)
+    }
+    
+    public func transform(_ matrix: Matrix) {
+        
+        var copy = matrix
+        
+        cairo_transform(internalPointer, &copy)
+    }
+    
+    public func showPage() {
+        
+        cairo_show_page(internalPointer)
+    }
+    
+    public func copyPage() {
+        
+        cairo_copy_page(internalPointer)
+    }
+    
+    public func newPath() {
+        
+        cairo_new_path(internalPointer)
+    }
+    
+    public func closePath() {
+        
+        cairo_close_path(internalPointer)
+    }
+    
+    public func newSubpath() {
+        
+        cairo_new_sub_path(internalPointer)
+    }
+    
     // MARK: - Accessors
+    
+    public var status: Status {
+        
+        return cairo_status(internalPointer)
+    }
+    
+    public var currentPoint: (x: Double, y: Double)? {
+        
+        guard cairo_has_current_point(internalPointer) != 0
+            else { return nil }
+        
+        var x: Double = 0
+        
+        var y: Double = 0
+        
+        cairo_get_current_point(internalPointer, &x, &y)
+        
+        return (x: x, y: y)
+    }
     
     public var source: Pattern {
         
@@ -258,6 +349,20 @@ public final class Context {
         return surface
     }
     
+    public var fillRule: cairo_fill_rule_t {
+        
+        get { return cairo_get_fill_rule(internalPointer) }
+        
+        set { cairo_set_fill_rule(internalPointer, newValue) }
+    }
+    
+    public var antialias: cairo_antialias_t {
+        
+        get { return cairo_get_antialias(internalPointer) }
+        
+        set { cairo_set_antialias(internalPointer, newValue) }
+    }
+    
     public var lineWidth: Double {
         
         get { return cairo_get_line_width(internalPointer) }
@@ -265,9 +370,74 @@ public final class Context {
         set { cairo_set_line_width(internalPointer, newValue) }
     }
     
-    public var status: Status {
+    public var lineJoin: cairo_line_join_t {
         
-        return cairo_status(internalPointer)
+        get { return cairo_get_line_join(internalPointer) }
+        
+        set { cairo_set_line_join(internalPointer, newValue) }
+    }
+    
+    public var lineCap: cairo_line_cap_t {
+        
+        get { return cairo_get_line_cap(internalPointer) }
+        
+        set { cairo_set_line_cap(internalPointer, newValue) }
+    }
+    
+    public var lineDash: (phase: Double, lengths: [Double]) {
+        
+        get {
+            
+            var phase: Double = 0
+            
+            let dashCount = Int(cairo_get_dash_count(internalPointer))
+            
+            var lengths = [Double](repeating: 0, count: dashCount)
+            
+            cairo_get_dash(internalPointer, &lengths, &phase)
+            
+            return (phase: phase, lengths: lengths)
+        }
+        
+        set {
+            
+            var lengthsCopy = newValue.lengths
+            
+            cairo_set_dash(internalPointer, &lengthsCopy, Int32(newValue.lengths.count), newValue.phase)
+        }
+    }
+    
+    public var miterLimit: Double {
+        
+        get { return cairo_get_miter_limit(internalPointer) }
+        
+        set { cairo_set_miter_limit(internalPointer, newValue) }
+    }
+    
+    public var tolerance: Double {
+        
+        get { return cairo_get_tolerance(internalPointer) }
+        
+        set { cairo_set_tolerance(internalPointer, newValue) }
+    }
+    
+    public var pathExtents: (x: Double, y: Double, width: Double, height: Double) {
+        
+        var x: Double = 0
+        var y: Double = 0
+        var width: Double = 0
+        var height: Double = 0
+        
+        cairo_path_extents(internalPointer, &x, &y, &width, &height)
+        
+        return (x: x, y: y, width: width, height: height)
+    }
+    
+    public var `operator`: cairo_operator_t {
+        
+        get { return cairo_get_operator(internalPointer) }
+        
+        set { cairo_set_operator(internalPointer, newValue) }
     }
 }
 
