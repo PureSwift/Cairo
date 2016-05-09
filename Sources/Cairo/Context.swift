@@ -247,6 +247,11 @@ public final class Context {
         cairo_translate(internalPointer, x, y)
     }
     
+    public func rotate(_ angle: Double) {
+        
+        cairo_rotate(internalPointer, angle)
+    }
+    
     public func transform(_ matrix: Matrix) {
         
         var copy = matrix
