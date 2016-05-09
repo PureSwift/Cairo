@@ -55,6 +55,11 @@ public extension Matrix {
         cairo_matrix_invert(&self)
     }
     
+    mutating func invert() {
+        
+        cairo_matrix_invert(&self)
+    }
+    
     /// Multiplies the affine transformations in `a` and `b` together and stores the result in result.
     /// The effect of the resulting transformation is to first apply the transformation in `a` to the coordinates
     /// and then apply the transformation in `b` to the coordinates.
@@ -63,5 +68,10 @@ public extension Matrix {
         var copy = (a: a, b: b)
         
         cairo_matrix_multiply(&self, &copy.a, &copy.b)
+    }
+    
+    mutating func scale(x: Double, y: Double) {
+        
+        cairo_matrix_scale(&self, x, y)
     }
 }
