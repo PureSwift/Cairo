@@ -38,6 +38,18 @@ public final class Path {
         return internalPointer.pointee.status
     }
     
+    public lazy var data: [cairo_path_data_t] = {
+        
+        var data = [cairo_path_data_t](repeating: cairo_path_data_t(), count: self.count)
+        
+        for index in 0 ..< self.count {
+            
+            data[index] = self.internalPointer.pointee.data[index]
+        }
+        
+        return data
+    }()
+    
     // MARK: - Methods
     
     public subscript (index: Int) -> cairo_path_data_t {
