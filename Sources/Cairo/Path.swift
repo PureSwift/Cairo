@@ -25,4 +25,23 @@ public final class Path {
         
         self.internalPointer = internalPointer
     }
+    
+    // MARK: - Properties
+    
+    public var count: Int {
+        
+        return Int(internalPointer.pointee.num_data)
+    }
+    
+    public var status: Status {
+        
+        return internalPointer.pointee.status
+    }
+    
+    // MARK: - Methods
+    
+    public subscript (index: Int) -> cairo_path_data_t {
+        
+        return internalPointer.pointee.data[index]
+    }
 }
