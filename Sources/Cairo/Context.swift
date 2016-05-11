@@ -44,7 +44,7 @@ public final class Context {
     /// Makes a copy of the current state of the context and saves it on an internal stack of saved states.
     /// When `restore()` is called, the context will be restored to the saved state.
     /// Multiple calls to `save()` and `restore()` can be nested; 
-    /// each call to `restore()` restores the state from the matching paired cairo_save().
+    /// each call to `restore()` restores the state from the matching paired `save()`.
     public func save() {
         
         cairo_save(internalPointer)
@@ -102,6 +102,14 @@ public final class Context {
     public func setSource(color: (red: Double, green: Double, blue: Double, alpha: Double)) {
         
         cairo_set_source_rgba(internalPointer, color.red, color.green, color.blue, color.alpha)
+    }
+    
+    /// A drawing operator that paints the current source using the alpha channel of surface as a mask. 
+    /// 
+    /// - Note: Opaque areas of `surface` are painted with the source, transparent areas are not painted.
+    public func mask(surface: Surface, at point: (x: Double, y: Double)) {
+        
+        cairo_mask_surface(internalPointer, surface.internalPointer, point.x, point.y)
     }
     
     public func stroke() {
