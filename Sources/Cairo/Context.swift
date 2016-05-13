@@ -229,7 +229,7 @@ public final class Context {
     
     public func curve(to controlPoints: (first: (x: Double, y: Double), second: (x: Double, y: Double), end: (x: Double, y: Double))) {
         
-        cairo_curve_to(internalPointer, controlPoints.first.x, controlPoints.first.y, controlPoints.second.x, controlPoints.second.y, controlPoints.first.x, controlPoints.end.y)
+        cairo_curve_to(internalPointer, controlPoints.first.x, controlPoints.first.y, controlPoints.second.x, controlPoints.second.y, controlPoints.end.x, controlPoints.end.y)
     }
     
     public func show(text: String) {
