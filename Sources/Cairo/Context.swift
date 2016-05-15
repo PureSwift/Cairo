@@ -35,7 +35,7 @@ public final class Context {
         
         assert(internalPointer != nil, "Could not create internal pointer")
         // set values
-        self.internalPointer = internalPointer
+        self.internalPointer = internalPointer!
         self.surface = surface
     }
     
@@ -80,7 +80,7 @@ public final class Context {
     /// returns a new pattern containing the results of all drawing operations performed to the group.
     public func popGroup() -> Pattern {
         
-        let patternPointer = cairo_pop_group(internalPointer)
+        let patternPointer = cairo_pop_group(internalPointer)!
         
         let pattern = Pattern(patternPointer)
         
@@ -187,7 +187,7 @@ public final class Context {
     /// Creates a copy of the current path and returns it to the user as a `Path`.
     public func copyPath() -> Path {
         
-        let pathPointer = cairo_copy_path(internalPointer)
+        let pathPointer = cairo_copy_path(internalPointer)!
         
         return Path(pathPointer)
     }
@@ -195,7 +195,7 @@ public final class Context {
     /// Gets a flattened copy of the current path.
     public func copyFlatPath() -> Path {
         
-        let pathPointer = cairo_copy_path_flat(internalPointer)
+        let pathPointer = cairo_copy_path_flat(internalPointer)!
         
         return Path(pathPointer)
     }
@@ -317,7 +317,7 @@ public final class Context {
         
         get {
             
-            let patternPointer = cairo_get_source(internalPointer)
+            let patternPointer = cairo_get_source(internalPointer)!
             
             cairo_pattern_reference(patternPointer)
             
@@ -355,7 +355,7 @@ public final class Context {
     /// as started by the most recent call to `pushGroup()`.
     public var groupTarget: Surface {
         
-        let surfacePointer = cairo_get_group_target(internalPointer)
+        let surfacePointer = cairo_get_group_target(internalPointer)!
         
         let surface = Surface(surfacePointer)
         

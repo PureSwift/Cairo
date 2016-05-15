@@ -22,7 +22,7 @@ extension Cairo.Status: CustomStringConvertible {
     
     public var description: String {
         
-        let cString = cairo_status_to_string(self)
+        let cString = cairo_status_to_string(self)!
         
         let string = String(cString: cString)
         
