@@ -56,7 +56,7 @@ public final class Pattern {
     
     public static var mesh: Pattern {
         
-        let internalPointer = cairo_pattern_create_mesh()
+        let internalPointer = cairo_pattern_create_mesh()!
         
         return self.init(internalPointer)
     }
