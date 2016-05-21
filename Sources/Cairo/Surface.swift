@@ -21,7 +21,7 @@ public final class Surface {
         cairo_surface_destroy(internalPointer)
     }
     
-    internal init(_ internalPointer: OpaquePointer) {
+    public init(_ internalPointer: OpaquePointer) {
         
         self.internalPointer = internalPointer
     }
@@ -71,6 +71,4 @@ public final class Surface {
         
         return surfaceType
     }
-    
-    
 }
