@@ -37,6 +37,7 @@
 /* Begin PBXFileReference section */
 		6E0B0E311C6440F2007BB59B /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		6E0F41961CDE8FEC0001E5B3 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		6E0FAB3E1CF04589001B2EB0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		6E339B581CDF3B35008E399E /* CairoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CairoTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E339B591CDF3B35008E399E /* CairoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CairoTest.h; sourceTree = "<group>"; };
 		6E339B5A1CDF3B35008E399E /* CairoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CairoTest.m; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		6ECC91A71C5EB901003DE6BA = {
 			isa = PBXGroup;
 			children = (
+				6E0FAB3E1CF04589001B2EB0 /* Package.swift */,
 				6ECC91D11C5EBC57003DE6BA /* Dependencies */,
 				6ECC91CC1C5EBB63003DE6BA /* Sources */,
 				6ECC91B31C5EB901003DE6BA /* Cairo */,
@@ -152,7 +154,8 @@
 				6E339B591CDF3B35008E399E /* CairoTest.h */,
 				6E339B5A1CDF3B35008E399E /* CairoTest.m */,
 			);
-			path = UnitTests;
+			name = UnitTests;
+			path = CairoUnitTests;
 			sourceTree = "<group>";
 		};
 		6ECC91D11C5EBC57003DE6BA /* Dependencies */ = {

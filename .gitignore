@@ -1,3 +1,4 @@
 Xcode/Cairo.xcodeproj/project.xcworkspace/xcuserdata/
 Xcode/Cairo.xcodeproj/xcuserdata
-libcairo/autom4te.cache
+.build
+Packages
