@@ -452,5 +452,45 @@ public final class Context {
         
         set { cairo_set_operator(internalPointer, newValue) }
     }
+    
+    public var fontFace: FontFace {
+        
+        get {
+            
+            // This function never returns NULL. 
+            // If memory cannot be allocated, a special "nil" `cairo_font_face_t` object will be returned
+            let fontFacePointer = cairo_get_font_face(internalPointer)!
+            
+            guard cairo_font_face_status(fontFacePointer) != CAIRO_STATUS_NO_MEMORY
+                else { fatalError("Memory cannot be allocated") }
+            
+            // hold reference
+            cairo_font_face_reference(fontFacePointer)
+            
+            return FontFace(fontFacePointer)
+        }
+        
+        set { cairo_set_font_face(internalPointer, newValue.internalPointer) }
+    }
+    
+    public var scaledFont: ScaledFont {
+        
+        get {
+            
+            // This function never returns NULL.
+            // If memory cannot be allocated, a special "nil" `cairo_scaled_font_t` object will be returned
+            let scaledFontPointer = cairo_get_scaled_font(internalPointer)!
+            
+            guard cairo_scaled_font_status(scaledFontPointer) != CAIRO_STATUS_NO_MEMORY
+                else { fatalError("Memory cannot be allocated") }
+            
+            // hold reference
+            cairo_scaled_font_reference(scaledFontPointer)
+            
+            return ScaledFont(scaledFontPointer)
+        }
+        
+        set { cairo_set_scaled_font(internalPointer, newValue.internalPointer) }
+    }
 }
 
