@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E031AD31CFB8D9E004C8431 /* libfontconfig.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */; };
 		6E0B0E321C6440F2007BB59B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B0E311C6440F2007BB59B /* Path.swift */; };
 		6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0F41961CDE8FEC0001E5B3 /* Font.swift */; };
 		6E339B5B1CDF3B35008E399E /* CairoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E339B5A1CDF3B35008E399E /* CairoTest.m */; };
@@ -35,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfontconfig.dylib; path = ../../../../../usr/local/lib/libfontconfig.dylib; sourceTree = "<group>"; };
+		6E031AD61CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
+		6E031AD81CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		6E0B0E311C6440F2007BB59B /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		6E0F41961CDE8FEC0001E5B3 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		6E0FAB3E1CF04589001B2EB0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
@@ -51,7 +55,6 @@
 		6ECC91B61C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ECC91BB1C5EB901003DE6BA /* CairoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CairoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECC91C21C5EB901003DE6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6ECC91CB1C5EBB44003DE6BA /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = SOURCE_ROOT; };
 		6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcairo.dylib; path = /usr/local/lib/libcairo.dylib; sourceTree = "<absolute>"; };
 		6ECC91D31C5EC069003DE6BA /* Surface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
 		6ECC91D51C5EC1F0003DE6BA /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ECC91D71C5EC250003DE6BA /* libcairo.dylib in Frameworks */,
+				6E031AD31CFB8D9E004C8431 /* libfontconfig.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,10 +84,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E031AD41CFB8E6B004C8431 /* ModuleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				6E031AD51CFB8E6B004C8431 /* CCairo */,
+				6E031AD71CFB8E6B004C8431 /* CFontConfig */,
+			);
+			path = ModuleMaps;
+			sourceTree = "<group>";
+		};
+		6E031AD51CFB8E6B004C8431 /* CCairo */ = {
+			isa = PBXGroup;
+			children = (
+				6E031AD61CFB8E6B004C8431 /* module.map */,
+			);
+			path = CCairo;
+			sourceTree = "<group>";
+		};
+		6E031AD71CFB8E6B004C8431 /* CFontConfig */ = {
+			isa = PBXGroup;
+			children = (
+				6E031AD81CFB8E6B004C8431 /* module.map */,
+			);
+			path = CFontConfig;
+			sourceTree = "<group>";
+		};
 		6ECC91A71C5EB901003DE6BA = {
 			isa = PBXGroup;
 			children = (
 				6E0FAB3E1CF04589001B2EB0 /* Package.swift */,
+				6E031AD41CFB8E6B004C8431 /* ModuleMaps */,
 				6ECC91D11C5EBC57003DE6BA /* Dependencies */,
 				6ECC91CC1C5EBB63003DE6BA /* Sources */,
 				6ECC91B31C5EB901003DE6BA /* Cairo */,
@@ -105,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				6E8041571C60377900FF5717 /* cairo */,
-				6ECC91CB1C5EBB44003DE6BA /* module.map */,
 				6ECC91B61C5EB901003DE6BA /* Info.plist */,
 			);
 			path = Cairo;
@@ -132,16 +161,16 @@
 		6ECC91CD1C5EBB77003DE6BA /* Cairo */ = {
 			isa = PBXGroup;
 			children = (
-				6E339B8B1CDFDBD9008E399E /* Status.swift */,
+				6E8041551C6036F500FF5717 /* Content.swift */,
 				6ECC91D51C5EC1F0003DE6BA /* Context.swift */,
-				6ECC91D31C5EC069003DE6BA /* Surface.swift */,
+				6E0F41961CDE8FEC0001E5B3 /* Font.swift */,
 				6ECC91DA1C5EC90A003DE6BA /* ImageFormat.swift */,
+				6E572EBB1CE01FD0002E245A /* Matrix.swift */,
 				6ECC91DC1C5ECC13003DE6BA /* Pattern.swift */,
 				6E0B0E311C6440F2007BB59B /* Path.swift */,
-				6E8041551C6036F500FF5717 /* Content.swift */,
+				6ECC91D31C5EC069003DE6BA /* Surface.swift */,
 				6E8041581C60383700FF5717 /* SurfaceType.swift */,
-				6E0F41961CDE8FEC0001E5B3 /* Font.swift */,
-				6E572EBB1CE01FD0002E245A /* Matrix.swift */,
+				6E339B8B1CDFDBD9008E399E /* Status.swift */,
 			);
 			path = Cairo;
 			sourceTree = "<group>";
@@ -169,6 +198,7 @@
 		6ECC91D21C5EBC5D003DE6BA /* OS X */ = {
 			isa = PBXGroup;
 			children = (
+				6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */,
 				6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */,
 			);
 			name = "OS X";
@@ -352,10 +382,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_INCLUDE_PATHS = $SRCROOT/ModuleMaps;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -393,9 +426,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_INCLUDE_PATHS = $SRCROOT/ModuleMaps;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -412,15 +448,17 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				INFOPLIST_FILE = Cairo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.Cairo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = $SRCROOT;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -435,15 +473,17 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				INFOPLIST_FILE = Cairo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.Cairo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = $SRCROOT;
 			};
 			name = Release;
 		};
@@ -453,14 +493,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.CairoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = $SRCROOT;
-				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/UnitTests/CairoTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/CairoUnitTests/CairoTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -471,14 +508,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = CairoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.pureswift.CairoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = $SRCROOT;
-				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/UnitTests/CairoTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Sources/CairoUnitTests/CairoTests-Bridging-Header.h";
 			};
 			name = Release;
 		};

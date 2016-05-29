@@ -1,0 +1,5 @@
+module CFontConfig [system] {
+    header "/usr/local/include/fontconfig/fontconfig.h"
+	link "fontconfig"
+    export *
+}
