@@ -69,7 +69,7 @@ public final class ScaledFont {
         return fontExtents
     }
     
-    // MARK: Font Face Properties
+    // MARK: FreeType Properties
     
     public lazy var fullName: String = {
         
@@ -198,6 +198,36 @@ public final class ScaledFont {
         return self.lockFontFace { FontIndex(FT_Get_Char_Index($0, character)) }
     }
     
+    // MARK: - Methods
+    
+    public func advances(for glyphs: [FontIndex]) -> [Int] {
+        
+        return self.lockFontFace { (fontFace) in
+            
+            return glyphs.map { (glyph) in
+                
+                FT_Load_Glyph(fontFace, FT_UInt(glyph), Int32(FT_LOAD_NO_SCALE))
+                
+                return fontFace.pointee.glyph.pointee.metrics.horiAdvance
+            }
+        }
+    }
+    
+    public func boundingBoxes(for glyphs: [FontIndex]) -> [(x: Int, y: Int, width: Int, height: Int)] {
+        
+        return self.lockFontFace { (fontFace) in
+            
+            return glyphs.map { (glyph) in
+                
+                FT_Load_Glyph(fontFace, FT_UInt(glyph), Int32(FT_LOAD_NO_SCALE))
+                
+                let metrics = fontFace.pointee.glyph.pointee.metrics
+                
+                return (metrics.horiBearingX, metrics.horiBearingY - metrics.height, metrics.width, metrics.height)
+            }
+        }
+    }
+    
     // MARK: - Private Methods
     
     private func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
@@ -214,6 +244,9 @@ public final class ScaledFont {
 
 public typealias FontIndex = UInt16
 
+/// The font's face.
+///
+/// - Note: Only compatible with FreeType and FontConfig.
 public final class FontFace {
     
     // MARK: - Properties
