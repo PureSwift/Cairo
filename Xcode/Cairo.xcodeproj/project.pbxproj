@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E031AD31CFB8D9E004C8431 /* libfontconfig.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */; };
+		6E031ADA1CFBFE30004C8431 /* libfreetype.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E031AD91CFBFE30004C8431 /* libfreetype.dylib */; };
 		6E0B0E321C6440F2007BB59B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B0E311C6440F2007BB59B /* Path.swift */; };
 		6E0F41971CDE8FEC0001E5B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0F41961CDE8FEC0001E5B3 /* Font.swift */; };
 		6E339B5B1CDF3B35008E399E /* CairoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E339B5A1CDF3B35008E399E /* CairoTest.m */; };
@@ -39,6 +40,7 @@
 		6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfontconfig.dylib; path = ../../../../../usr/local/lib/libfontconfig.dylib; sourceTree = "<group>"; };
 		6E031AD61CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		6E031AD81CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
+		6E031AD91CFBFE30004C8431 /* libfreetype.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.dylib; path = ../../../../../usr/local/lib/libfreetype.dylib; sourceTree = "<group>"; };
 		6E0B0E311C6440F2007BB59B /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		6E0F41961CDE8FEC0001E5B3 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		6E0FAB3E1CF04589001B2EB0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E031ADA1CFBFE30004C8431 /* libfreetype.dylib in Frameworks */,
 				6ECC91D71C5EC250003DE6BA /* libcairo.dylib in Frameworks */,
 				6E031AD31CFB8D9E004C8431 /* libfontconfig.dylib in Frameworks */,
 			);
@@ -198,8 +201,9 @@
 		6ECC91D21C5EBC5D003DE6BA /* OS X */ = {
 			isa = PBXGroup;
 			children = (
-				6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */,
 				6ECC91CF1C5EBC54003DE6BA /* libcairo.dylib */,
+				6E031AD21CFB8D9E004C8431 /* libfontconfig.dylib */,
+				6E031AD91CFBFE30004C8431 /* libfreetype.dylib */,
 			);
 			name = "OS X";
 			sourceTree = "<group>";
@@ -382,7 +386,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -426,7 +433,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/freetype2,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -448,10 +458,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/usr/local/include/freetype2,
-				);
 				INFOPLIST_FILE = Cairo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -473,10 +479,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/usr/local/include/freetype2,
-				);
 				INFOPLIST_FILE = Cairo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
