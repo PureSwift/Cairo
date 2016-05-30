@@ -41,6 +41,7 @@
 		6E031AD61CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		6E031AD81CFB8E6B004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		6E031AD91CFBFE30004C8431 /* libfreetype.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.dylib; path = ../../../../../usr/local/lib/libfreetype.dylib; sourceTree = "<group>"; };
+		6E031ADC1CFC1B95004C8431 /* module.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		6E0B0E311C6440F2007BB59B /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		6E0F41961CDE8FEC0001E5B3 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		6E0FAB3E1CF04589001B2EB0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				6E031AD51CFB8E6B004C8431 /* CCairo */,
+				6E031ADB1CFC1B95004C8431 /* CFreeType */,
 				6E031AD71CFB8E6B004C8431 /* CFontConfig */,
 			);
 			path = ModuleMaps;
@@ -110,6 +112,14 @@
 				6E031AD81CFB8E6B004C8431 /* module.map */,
 			);
 			path = CFontConfig;
+			sourceTree = "<group>";
+		};
+		6E031ADB1CFC1B95004C8431 /* CFreeType */ = {
+			isa = PBXGroup;
+			children = (
+				6E031ADC1CFC1B95004C8431 /* module.map */,
+			);
+			path = CFreeType;
 			sourceTree = "<group>";
 		};
 		6ECC91A71C5EB901003DE6BA = {
