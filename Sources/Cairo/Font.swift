@@ -10,41 +10,6 @@ import CCairo
 import CFontConfig
 import CFreeType
 
-public typealias FontIndex = UInt16
-
-public final class FontFace {
-    
-    // MARK: - Properties
-    
-    internal let internalPointer: OpaquePointer
-    
-    // MARK: - Initialization
-    
-    deinit {
-        
-        cairo_font_face_destroy(internalPointer)
-    }
-    
-    public init(fontConfigPattern: OpaquePointer) {
-        
-        self.internalPointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
-    }
-    
-    internal init(_ internalPointer: OpaquePointer) {
-        
-        self.internalPointer = internalPointer
-    }
-    
-    // MARK: - Accessors
-    
-    public var status: Status {
-        
-        return cairo_font_face_status(internalPointer)
-    }
-    
-    public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
-}
-
 public final class ScaledFont {
     
     // MARK: - Properties
@@ -79,6 +44,20 @@ public final class ScaledFont {
         
         return cairo_scaled_font_status(internalPointer)
     }
+    
+    public lazy var type: cairo_font_type_t = {
+        
+        return cairo_scaled_font_get_type(self.internalPointer)
+    }()
+    
+    public lazy var face: FontFace = {
+        
+        let pointer = cairo_scaled_font_get_font_face(self.internalPointer)!
+        
+        cairo_font_face_reference(pointer)
+        
+        return FontFace(pointer)
+    }()
     
     /// same as `maximumAdvancement`
     public var fontExtents: cairo_font_extents_t {
@@ -118,7 +97,7 @@ public final class ScaledFont {
     }()
     
     public lazy var capHeight: Int = {
-       
+        
         return self.lockFontFace {
             
             if let tablePointer = FT_Get_Sfnt_Table($0, FT_SFNT_OS2) {
@@ -151,7 +130,7 @@ public final class ScaledFont {
     }()
     
     public lazy var italicAngle: Double = {
-       
+        
         return self.lockFontFace {
             
             if let tablePointer = FT_Get_Sfnt_Table($0, FT_SFNT_POST) {
@@ -207,7 +186,7 @@ public final class ScaledFont {
         
         return self.lockFontFace { (fontFace) in
             
-             return glyphName.withCString { (cString) in
+            return glyphName.withCString { (cString) in
                 
                 return FontIndex(FT_Get_Name_Index(fontFace, UnsafeMutablePointer(cString)))
             }
@@ -229,6 +208,43 @@ public final class ScaledFont {
         
         return block(ftFace)
     }
+}
+
+// MARK: - Supporting Types
+
+public typealias FontIndex = UInt16
+
+public final class FontFace {
+    
+    // MARK: - Properties
+    
+    internal let internalPointer: OpaquePointer
+    
+    // MARK: - Initialization
+    
+    deinit {
+        
+        cairo_font_face_destroy(internalPointer)
+    }
+    
+    public init(fontConfigPattern: OpaquePointer) {
+        
+        self.internalPointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
+    }
+    
+    internal init(_ internalPointer: OpaquePointer) {
+        
+        self.internalPointer = internalPointer
+    }
+    
+    // MARK: - Accessors
+    
+    public var status: Status {
+        
+        return cairo_font_face_status(internalPointer)
+    }
+    
+    public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
 }
 
 public final class FontOptions: Equatable, Hashable {
@@ -269,9 +285,9 @@ public final class FontOptions: Equatable, Hashable {
         return cairo_font_options_status(internalPointer)
     }
     
-    public var copy: ScaledFont {
+    public var copy: FontOptions {
         
-        return ScaledFont(cairo_font_options_copy(internalPointer))
+        return FontOptions(cairo_font_options_copy(internalPointer))
     }
     
     public var hashValue: Int {
