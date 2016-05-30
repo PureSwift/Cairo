@@ -80,6 +80,18 @@ public final class ScaledFont {
         return cairo_scaled_font_status(internalPointer)
     }
     
+    /// same as `maximumAdvancement`
+    public var fontExtents: cairo_font_extents_t {
+        
+        var fontExtents = cairo_font_extents_t()
+        
+        cairo_scaled_font_extents(internalPointer, &fontExtents)
+        
+        return fontExtents
+    }
+    
+    // MARK: Font Face Properties
+    
     public lazy var fullName: String = {
         
         return self.lockFontFace { String(validatingUTF8: $0.pointee.family_name)! }
