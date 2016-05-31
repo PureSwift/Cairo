@@ -37,6 +37,13 @@ public extension Matrix {
         cairo_matrix_rotate(&self, radians)
     }
     
+    init(a: Double, b: Double, c: Double, d: Double, t: (x: Double, y: Double)) {
+        
+        self.init()
+        
+        cairo_matrix_init(&self, a, b, c, d, t.x, t.y)
+    }
+    
     // MARK: - Methods
     
     /// Applies rotation by radians to the transformation in matrix.
