@@ -182,6 +182,20 @@ public final class ScaledFont {
     
     // MARK: - Subscripting
     
+    public subscript (glyph: FontIndex) -> String {
+        
+        return self.lockFontFace { (fontFace) in
+            
+            let bufferSize = 256
+            let buffer = UnsafeMutablePointer<CChar>(allocatingCapacity: bufferSize)
+            defer { buffer.deallocateCapacity(bufferSize) }
+            
+            FT_Get_Glyph_Name(fontFace, FT_UInt(glyph), buffer, FT_UInt(bufferSize))
+            
+            return String(validatingUTF8: buffer)!
+        }
+    }
+    
     public subscript (glyphName: String) -> FontIndex {
         
         return self.lockFontFace { (fontFace) in
