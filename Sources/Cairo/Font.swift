@@ -387,3 +387,10 @@ public enum FontWeight: cairo_font_weight_t.RawValue {
     
     case normal, bold
 }
+
+#if os(Linux)
+    
+    public let FT_SFNT_OS2 = FT_Sfnt_Tag(rawValue: 2)
+    public let FT_SFNT_POST = FT_Sfnt_Tag(rawValue: 5)
+    
+#endif
