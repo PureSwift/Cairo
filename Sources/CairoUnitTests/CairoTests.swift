@@ -25,7 +25,7 @@ final class CairoTests: XCTestCase {
         
         let testFilename = outputDirectory + "sourceXTest.png"
         
-        let surface = Surface(format: .ARGB32, width: 120, height: 120)
+        let surface = Surface(format: .argb32, width: 120, height: 120)
         
         let context = Cairo.Context(surface: surface)
         
@@ -57,8 +57,8 @@ final class CairoTests: XCTestCase {
         
         print("Wrote test to \(testFilename)")
         
-        let fileData = NSData(contentsOfFile: filename)
-        let testFileData = NSData(contentsOfFile: testFilename)
+        let fileData = try? Data(contentsOf: URL(fileURLWithPath: filename))
+        let testFileData = try? Data(contentsOf: URL(fileURLWithPath: testFilename))
         
         XCTAssert(fileData == testFileData)
     }
@@ -70,9 +70,9 @@ let outputDirectory: String = {
     
     var isDirectory: ObjCBool = false
     
-    if NSFileManager.default().fileExists(atPath: outputDirectory, isDirectory: &isDirectory) == false {
+    if FileManager.`default`.fileExists(atPath: outputDirectory, isDirectory: &isDirectory) == false {
         
-        try! NSFileManager.default().createDirectory(atPath: outputDirectory, withIntermediateDirectories: false)
+        try! FileManager.`default`.createDirectory(atPath: outputDirectory, withIntermediateDirectories: false)
     }
     
     return outputDirectory

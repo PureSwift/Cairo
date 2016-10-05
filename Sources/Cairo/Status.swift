@@ -30,7 +30,7 @@ extension Cairo.Status: CustomStringConvertible {
     }
 }
 
-public struct CairoError: RawRepresentable, CustomStringConvertible, ErrorProtocol {
+public struct CairoError: RawRepresentable, CustomStringConvertible, Error {
     
     public typealias RawValue = cairo_status_t.RawValue
     
