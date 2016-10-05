@@ -13,15 +13,15 @@ public enum ImageFormat: CInt {
     /// alpha in the upper 8 bits, then red, then green, then blue.
     /// The 32-bit quantities are stored native-endian. Pre-multiplied alpha is used. 
     /// (That is, 50% transparent red is 0x80800000, not 0x80ff0000.)
-    case ARGB32 = 0
+    case argb32 = 0
     
-    case RGB24
+    case rgb24
     
-    case A8
+    case a8
     
-    case A1
+    case a1
     
-    case RGB16565
+    case rgb16565
     
-    case RGB30
+    case rgb30
 }

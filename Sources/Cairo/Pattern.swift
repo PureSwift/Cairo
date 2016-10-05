@@ -80,13 +80,13 @@ public final class Pattern {
     // MARK: - Methods
     
     /// Adds an opaque color stop to a gradient pattern.
-    public func addColorStop(offset: Double, red: Double, green: Double, blue: Double) {
+    public func addColorStop(_ offset: Double, red: Double, green: Double, blue: Double) {
         
         cairo_pattern_add_color_stop_rgb(internalPointer, offset, red, green, blue)
     }
     
     /// Adds an opaque color stop to a gradient pattern.
-    public func addColorStop(offset: Double, red: Double, green: Double, blue: Double, alpha: Double) {
+    public func addColorStop(_ offset: Double, red: Double, green: Double, blue: Double, alpha: Double) {
         
         cairo_pattern_add_color_stop_rgba(internalPointer, offset, red, green, blue, alpha)
     }
@@ -98,6 +98,6 @@ public final class Pattern {
 /// Subtypes of `Pattern`
 public enum PatternType: UInt32 {
     
-    case Solid, Surface, Linear, Radial, Mesh, RasterSource
+    case solid, surface, linear, radial, mesh, rasterSource
 }
 

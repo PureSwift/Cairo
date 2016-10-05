@@ -11,11 +11,11 @@
 public enum Content: UInt32 {
     
     /// The surface will hold color content only.
-    case Color          = 0x1000
+    case color          = 0x1000
     
     /// The surface will hold alpha content only.
-    case Alpha          = 0x2000
+    case alpha          = 0x2000
     
     /// The surface will hold color and alpha content.
-    case ColorAlpha     = 0x3000
+    case colorAlpha     = 0x3000
 }

@@ -103,7 +103,7 @@ public final class ScaledFont {
             if let tablePointer = FT_Get_Sfnt_Table($0, FT_SFNT_OS2) {
                 
                 // owned by font face
-                let os2Table = UnsafeMutablePointer<TT_OS2>(tablePointer)
+                let os2Table = tablePointer.assumingMemoryBound(to: TT_OS2.self)
                 
                 return Int(os2Table.pointee.sCapHeight)
                 
@@ -136,7 +136,7 @@ public final class ScaledFont {
             if let tablePointer = FT_Get_Sfnt_Table($0, FT_SFNT_POST) {
                 
                 // owned by font face
-                let psTable = UnsafeMutablePointer<TT_Postscript>(tablePointer)
+                let psTable = tablePointer.assumingMemoryBound(to: TT_Postscript.self)
                 
                 return Double(psTable.pointee.italicAngle)
                 
@@ -169,7 +169,7 @@ public final class ScaledFont {
             if let tablePointer = FT_Get_Sfnt_Table($0, FT_SFNT_OS2) {
                 
                 // owned by font face
-                let os2Table = UnsafeMutablePointer<TT_OS2>(tablePointer)
+                let os2Table = tablePointer.assumingMemoryBound(to: TT_OS2.self)
                 
                 return Int(os2Table.pointee.sxHeight)
                 
@@ -187,8 +187,8 @@ public final class ScaledFont {
         return self.lockFontFace { (fontFace) in
             
             let bufferSize = 256
-            let buffer = UnsafeMutablePointer<CChar>(allocatingCapacity: bufferSize)
-            defer { buffer.deallocateCapacity(bufferSize) }
+            let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: bufferSize)
+            defer { buffer.deallocate(capacity: bufferSize) }
             
             FT_Get_Glyph_Name(fontFace, FT_UInt(glyph), buffer, FT_UInt(bufferSize))
             
@@ -202,7 +202,7 @@ public final class ScaledFont {
             
             return glyphName.withCString { (cString) in
                 
-                return FontIndex(FT_Get_Name_Index(fontFace, UnsafeMutablePointer(cString)))
+                return FontIndex(FT_Get_Name_Index(fontFace, UnsafeMutablePointer(mutating: cString)))
             }
         }
     }
@@ -244,7 +244,7 @@ public final class ScaledFont {
     
     // MARK: - Private Methods
     
-    private func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
+    fileprivate func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
         
         let ftFace = cairo_ft_scaled_font_lock_face(self.internalPointer)!
         
@@ -378,12 +378,14 @@ public func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
 
 // MARK: - Supporting Types
 
-public enum FontSlant: cairo_font_slant_t.RawValue {
+/// cairo_font_slant_t
+public enum FontSlant: UInt32 {
     
     case normal, italic, oblique
 }
 
-public enum FontWeight: cairo_font_weight_t.RawValue {
+/// cairo_font_weight_t
+public enum FontWeight: UInt32 {
     
     case normal, bold
 }
