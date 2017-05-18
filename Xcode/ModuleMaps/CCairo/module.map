@@ -1,9 +1,0 @@
-module CCairo [system] {
-    header "/usr/local/include/cairo/cairo.h"
-    header "/usr/local/include/cairo/cairo-pdf.h"
-    header "/usr/local/include/cairo/cairo-svg.h"
-    header "/usr/local/include/cairo/cairo-quartz.h"
-    header "/usr/local/include/cairo/cairo-ft.h"
-	link "cairo"
-    export *
-}
