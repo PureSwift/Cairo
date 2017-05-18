@@ -7,23 +7,18 @@
 //
 
 import XCTest
-import Cairo
+import Foundation
+@testable import Cairo
 
 final class CairoTests: XCTestCase {
     
+    static let allTests = [("testSourceX", testSourceX)]
+    
     func testSourceX() {
-        
-        // write original
-        
-        let filename = outputDirectory + "sourceX.png"
-        
-        CairoTest.sourceX(filename)
-        
-        print("Wrote original to \(filename)")
         
         // write swift copy
         
-        let testFilename = outputDirectory + "sourceXTest.png"
+        let testFilename = outputDirectory + "sourceX.png"
         
         let surface = Surface(format: .argb32, width: 120, height: 120)
         
@@ -56,11 +51,6 @@ final class CairoTests: XCTestCase {
         surface.writePNG(to: testFilename)
         
         print("Wrote test to \(testFilename)")
-        
-        let fileData = try? Data(contentsOf: URL(fileURLWithPath: filename))
-        let testFileData = try? Data(contentsOf: URL(fileURLWithPath: testFilename))
-        
-        XCTAssert(fileData == testFileData)
     }
 }
 
