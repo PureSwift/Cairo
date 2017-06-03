@@ -7,6 +7,6 @@
 //
 
 import XCTest
-@testable import UnitTests
+@testable import CairoTests
 
 XCTMain([testCase(CairoTests.allTests)])
