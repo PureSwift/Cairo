@@ -21,17 +21,7 @@ public class Surface {
         cairo_surface_destroy(internalPointer)
     }
     
-    public required init(_ internalPointer: OpaquePointer) {
-        
-        self.internalPointer = internalPointer
-    }
-    
-    public init?(similar other: Surface, content: Content, width: Int, height: Int) {
-        
-        guard let internalPointer = cairo_surface_create_similar(other.internalPointer,
-                                                                 cairo_content_t(content),
-                                                                 Int32(width), Int32(height))
-            else { return nil }
+    internal init(_ internalPointer: OpaquePointer) {
         
         self.internalPointer = internalPointer
     }
@@ -45,15 +35,6 @@ public class Surface {
     }
     
     // MARK: - Methods
-    
-    /// Attempts to cast a surface as another type.
-    ///
-    /// Fails if the backend if not compatible with the class.
-    @inline(__always)
-    final func cast<T: InternalSurface>(as surfaceType: T.Type) -> T? {
-        
-        return T.init(internalPointer)
-    }
     
     /// Do any pending drawing for the surface and also restore any temporary
     /// modifications cairo has made to the surface's state. 
@@ -106,12 +87,3 @@ public class Surface {
         return cairo_surface_status(internalPointer)
     }
 }
-
-/// Protocol for the internal `Surface` methods
-internal protocol InternalSurface {
-    
-    /// Create from opaque type.
-    init(_ internalPointer: OpaquePointer)
-}
-
-extension Surface: InternalSurface { }

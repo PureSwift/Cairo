@@ -19,7 +19,7 @@ public extension Surface {
             guard let internalPointer = cairo_pdf_surface_create(filename, width, height)
                 else { return nil }
             
-            self.internalPointer = internalPointer
+            super.init(internalPointer)
         }
         
         // MARK: - Class Methods
