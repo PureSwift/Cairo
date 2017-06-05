@@ -24,18 +24,22 @@ public extension Surface {
         /// The contents of bits within a pixel, but not belonging to the given format are undefined.
         public init?(format: ImageFormat, width: Int, height: Int) {
             
-            let internalFormat = cairo_format_t(format)
-            
-            guard let internalPointer = cairo_image_surface_create(internalFormat, Int32(width), Int32(height))
+            guard let internalPointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))
                 else { return nil }
             
             super.init(internalPointer)
         }
         
         /// Creates an image surface for the provided pixel data.
-        public init?(data: Data) {
+        public init?(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) {
             
-            fatalError()
+            var data = data
+            
+            guard let internalPointer = data.withUnsafeMutableBytes({ (bytes: UnsafeMutablePointer<UInt8>) in
+                cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride)) })
+                else { return nil }
+            
+            super.init(internalPointer)
         }
                 
         // MARK: - Class Methods
@@ -50,6 +54,12 @@ public extension Surface {
         }
         
         // MARK: - Accessors
+        
+        /// Get the format of the surface.
+        public var format: ImageFormat? {
+            
+            return ImageFormat(cairo_image_surface_get_format(internalPointer))
+        }
         
         /// Get the width of the image surface in pixels.
         public var width: Int {

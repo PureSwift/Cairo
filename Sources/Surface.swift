@@ -62,12 +62,6 @@ public class Surface {
         cairo_surface_finish(internalPointer)
     }
     
-    /// Writes the surface's contents to a PNG file.
-    public final func writePNG(at filepath: String) {
-        
-        cairo_surface_write_to_png(internalPointer, filepath)
-    }
-    
     // MARK: - Accessors
     
     public final var type: SurfaceType {
