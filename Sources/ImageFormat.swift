@@ -33,6 +33,7 @@ public enum ImageFormat: CInt {
 
 public extension ImageFormat {
     
+    /// Failible becuase -1 is invalid format. 
     @inline(__always)
     init?(_ format: cairo_format_t) {
         

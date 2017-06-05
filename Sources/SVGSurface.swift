@@ -18,5 +18,16 @@ public extension Surface {
             
             self.internalPointer = cairo_svg_surface_create(filename, width, height)
         }
+        
+        // MARK: - Class Methods
+        
+        public override class func isCompatible(with surfaceType: SurfaceType) -> Bool {
+            
+            switch surfaceType {
+                
+            case .svg: return true
+            default: return false
+            }
+        }
     }
 }
