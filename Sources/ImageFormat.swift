@@ -6,6 +6,9 @@
 //  Copyright © 2016 PureSwift. All rights reserved.
 //
 
+import struct CCairo.cairo_format_t
+import func CCairo.cairo_format_stride_for_width
+
 /// Used to identify the memory format of image data.
 public enum ImageFormat: CInt {
     
@@ -24,4 +27,31 @@ public enum ImageFormat: CInt {
     case rgb16565
     
     case rgb30
+}
+
+// MARK: - Cairo Extensions
+
+public extension ImageFormat {
+    
+    @inline(__always)
+    init?(_ format: cairo_format_t) {
+        
+        self.init(rawValue: format.rawValue)
+    }
+    
+    /// Provides stride value that will respect all alignment requirements of the accelerated image-rendering code within Cairo.
+    @inline(__always)
+    func stride(for width: Int) -> Int {
+        
+        return Int(cairo_format_stride_for_width(cairo_format_t(self), Int32(width)))
+    }
+}
+
+public extension cairo_format_t {
+    
+    @inline(__always)
+    init(_ imageFormat: ImageFormat) {
+        
+        self.init(imageFormat.rawValue)
+    }
 }

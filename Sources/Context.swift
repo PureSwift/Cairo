@@ -68,7 +68,7 @@ public final class Context {
         
         if let content = content {
             
-            cairo_push_group_with_content(internalPointer, cairo_content_t(rawValue: content.rawValue))
+            cairo_push_group_with_content(internalPointer, cairo_content_t(content))
             
         } else {
             

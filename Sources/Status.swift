@@ -46,6 +46,6 @@ public struct CairoError: RawRepresentable, CustomStringConvertible, Error {
     
     public var description: String {
         
-        return rawValue.description
+        return Cairo.Status(rawValue: self.rawValue).description
     }
 }

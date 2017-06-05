@@ -8,7 +8,7 @@
 
 import CCairo
 
-public final class Surface {
+public class Surface {
     
     // MARK: - Internal Properties
     
@@ -26,36 +26,43 @@ public final class Surface {
         self.internalPointer = internalPointer
     }
     
-    public init(format: ImageFormat, width: Int, height: Int) {
+    public init(similar other: Surface, content: Content, width: Int, height: Int) {
         
-        let internalFormat = cairo_format_t(rawValue: format.rawValue)
-        
-        self.internalPointer = cairo_image_surface_create(internalFormat, Int32(width), Int32(height))
-    }
-    
-    public init(svg filename: String, width: Double, height: Double) {
-        
-        self.internalPointer = cairo_svg_surface_create(filename, width, height)
-    }
-    
-    public init(pdf filename: String, width: Double, height: Double) {
-        
-        self.internalPointer = cairo_pdf_surface_create(filename, width, height)
+        self.internalPointer = cairo_surface_create_similar(other.internalPointer,
+                                                            cairo_content_t(content),
+                                                            Int32(width), Int32(height))
     }
     
     // MARK: - Methods
     
+    /// Do any pending drawing for the surface and also restore any temporary
+    /// modifications cairo has made to the surface's state. 
+    /// This function must be called before switching from drawing on the surface 
+    /// with Cairo to drawing on it directly with native APIs, 
+    /// or accessing its memory outside of Cairo. 
+    /// If the surface doesn't support direct access, then this function does nothing.
     public func flush() {
         
         cairo_surface_flush(internalPointer)
     }
     
+    /// Tells cairo that drawing has been done to surface using means other than cairo, 
+    /// and that cairo should reread any cached areas. 
+    /// 
+    /// - Note: You must `Cairo.Surface.flush()` before doing such drawing.
     public func markDirty() {
         
         cairo_surface_mark_dirty(internalPointer)
     }
     
-    public func writePNG(to filepath: String) {
+    /// This function finishes the surface and drops all references to external resources.
+    public func finish() {
+        
+        cairo_surface_finish(internalPointer)
+    }
+    
+    /// Writes the surface's contents to a PNG file.
+    public func writePNG(at filepath: String) {
         
         cairo_surface_write_to_png(internalPointer, filepath)
     }
@@ -64,11 +71,19 @@ public final class Surface {
     
     public var type: SurfaceType {
         
-        let value = cairo_surface_get_type(internalPointer)
+        return SurfaceType(cairo_surface_get_type(internalPointer))
+    }
+    
+    /// The content type which indicates whether the surface contains color and/or alpha information
+    public var content: Content {
         
-        guard let surfaceType = SurfaceType(rawValue: value.rawValue)
-            else { fatalError("Invalid surface type: \(value)") }
+        return Content(cairo_surface_get_content(internalPointer))
+    }
+    
+    /// Checks whether an error has previously occurred for this surface.
+    public var status: Status {
         
-        return surfaceType
+        return cairo_surface_status(internalPointer)
     }
 }
+
