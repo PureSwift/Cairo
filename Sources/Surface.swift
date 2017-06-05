@@ -12,7 +12,7 @@ public class Surface {
     
     // MARK: - Internal Properties
     
-    internal var internalPointer: OpaquePointer
+    internal let internalPointer: OpaquePointer
     
     // MARK: - Initialization
     
@@ -21,9 +21,7 @@ public class Surface {
         cairo_surface_destroy(internalPointer)
     }
     
-    internal init?(internalPointer: OpaquePointer) {
-        
-        let surfaceType
+    public required init(_ internalPointer: OpaquePointer) {
         
         self.internalPointer = internalPointer
     }
@@ -51,10 +49,8 @@ public class Surface {
     /// Attempts to cast a surface as another type.
     ///
     /// Fails if the backend if not compatible with the class.
-    public final func cast<T: Surface>(as surfaceType: T.Type) -> T? {
-        
-        guard T.isCompatible(with: type)
-            else { return nil }
+    @inline(__always)
+    final func cast<T: InternalSurface>(as surfaceType: T.Type) -> T? {
         
         return T.init(internalPointer)
     }
@@ -111,3 +107,11 @@ public class Surface {
     }
 }
 
+/// Protocol for the internal `Surface` methods
+internal protocol InternalSurface {
+    
+    /// Create from opaque type.
+    init(_ internalPointer: OpaquePointer)
+}
+
+extension Surface: InternalSurface { }

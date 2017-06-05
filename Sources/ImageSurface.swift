@@ -17,11 +17,6 @@ public extension Surface {
         
         // MARK: - Initialization
         
-        public init(_ internalPointer: OpaquePointer) {
-            
-            
-        }
-        
         /// Creates an image surface of the specified format and dimensions. 
         ///
         /// Initially the surface contents are all 0. 

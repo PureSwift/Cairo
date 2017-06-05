@@ -17,7 +17,7 @@ public final class Context {
     
     // MARK: - Internal Properties
     
-    internal var internalPointer: OpaquePointer
+    internal let internalPointer: OpaquePointer
     
     // MARK: - Initialization
     
