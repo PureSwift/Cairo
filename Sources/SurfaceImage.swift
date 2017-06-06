@@ -22,24 +22,28 @@ public extension Surface {
         /// Initially the surface contents are all 0. 
         /// Specifically, within each pixel, each color or alpha channel belonging to format will be 0.
         /// The contents of bits within a pixel, but not belonging to the given format are undefined.
-        public init?(format: ImageFormat, width: Int, height: Int) {
+        public init(format: ImageFormat, width: Int, height: Int) throws {
             
-            guard let internalPointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))
-                else { return nil }
+            let internalPointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))!
             
-            super.init(internalPointer)
+            try super.init(internalPointer)
         }
         
         /// Creates an image surface for the provided pixel data.
-        public init?(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) {
+        public init?(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
             
             var data = data
             
-            guard let internalPointer = data.withUnsafeMutableBytes({ (bytes: UnsafeMutablePointer<UInt8>) in
-                cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride)) })
-                else { return nil }
+            let internalPointer = data.withUnsafeMutableBytes({ (bytes: UnsafeMutablePointer<UInt8>) in
+            cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride))! })
             
-            super.init(internalPointer)
+            try super.init(internalPointer)
+        }
+        
+        /// For internal use with extensions (e.g. `init(png:)`)
+        internal override init(_ internalPointer: OpaquePointer) throws {
+            
+            try super.init(internalPointer)
         }
                 
         // MARK: - Class Methods

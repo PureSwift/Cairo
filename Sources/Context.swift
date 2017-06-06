@@ -357,7 +357,7 @@ public final class Context {
         
         let surfacePointer = cairo_get_group_target(internalPointer)!
         
-        let surface = Surface(surfacePointer)
+        let surface = try! Surface(surfacePointer)
         
         return surface
     }

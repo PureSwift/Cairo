@@ -14,12 +14,11 @@ public extension Surface {
         
         // MARK: - Initialization
         
-        public init?(filename: String, width: Double, height: Double) {
+        public init(filename: String, width: Double, height: Double) throws {
             
-            guard let internalPointer = cairo_pdf_surface_create(filename, width, height)
-                else { return nil }
+            let internalPointer = cairo_pdf_surface_create(filename, width, height)!
             
-            super.init(internalPointer)
+            try super.init(internalPointer)
         }
         
         // MARK: - Class Methods
