@@ -30,12 +30,11 @@ public extension Surface {
         }
         
         /// Creates an image surface for the provided pixel data.
-        public init?(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
+        public init(mutableBytes bytes: UnsafeMutablePointer<UInt8>, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
             
-            var data = data
+            assert(format.stride(for: width) == stride, "Invalid stride")
             
-            let internalPointer = data.withUnsafeMutableBytes({ (bytes: UnsafeMutablePointer<UInt8>) in
-            cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride))! })
+            let internalPointer = cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride))!
             
             try super.init(internalPointer)
         }
