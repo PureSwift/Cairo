@@ -69,17 +69,20 @@ final class CairoTests: XCTestCase {
         
         let testName = "testPDFSurface"
         
-        func fileName(for size: Int) -> String {
-            
-            return outputDirectory + "\(testName)_\(size).pdf"
-        }
+        let sizes = [10, 20, 50, 100, 200, 500, 1000, 10000]
         
-        testDraw(createSurface:{ try! Surface.PDF(filename: fileName(for: $0), width: Double($0), height: Double($0)) }) { (surface) in
+        for size in sizes {
+            
+            let testFilename = outputDirectory + "\(testName)_\(size).pdf"
+            
+            let surface = try! Surface.PDF(filename: testFilename, width: Double(size), height: Double(size))
+            
+            let context = Cairo.Context(surface: surface)
+            
+            context.drawSourceX(size: size)
             
             surface.flush()
             surface.finish()
-            
-            
             
             print("Wrote \(#function) test to \(testFilename)")
         }
@@ -120,31 +123,13 @@ fileprivate extension Context {
 
 fileprivate extension CairoTests {
     
-    func testDraw<T: Surface>(functionName: String = #function,
-                  createSurface: (_ size: Int) -> (T),
-                  forEach: ((_ surface: T) -> ())? = nil) {
-        
-        let sizes = [10, 20, 50, 100, 200, 500, 1000, 10000]
-        
-        for size in sizes {
-            
-            let surface = createSurface(size)
-            
-            let context = Cairo.Context(surface: surface)
-            
-            context.drawSourceX(size: size)
-            
-            forEach?(surface)
-        }
-    }
-    
     func writeTestPNG(testName: String,
                       functionName: String = #function,
                       forEach: ((_ surface: Surface.Image, _ filename: String) -> ())? = nil) {
         
         let formats: [ImageFormat] = [.argb32, .rgb24, .a8, .a1, .rgb16565, .rgb30]
         
-        let sizes = [1, 10, 20, 50, 100, 200, 500, 1000, 10000]
+        let sizes = [10, 20, 50, 100, 200, 500, 1000, 10000]
         
         for format in formats {
             
