@@ -77,6 +77,32 @@ public final class Pattern {
         return cairo_pattern_status(internalPointer)
     }
     
+    public var matrix: Matrix {
+        
+        get {
+            
+            var matrix = Matrix()
+            
+            cairo_pattern_get_matrix(internalPointer, &matrix)
+            
+            return matrix
+        }
+        
+        set {
+            
+            var newValue = newValue
+            
+            cairo_pattern_set_matrix(internalPointer, &newValue)
+        }
+    }
+    
+    public var extend: Extend {
+        
+        get { return Extend(rawValue: cairo_pattern_get_extend(internalPointer).rawValue)!  }
+        
+        set { cairo_pattern_set_extend(internalPointer, cairo_extend_t(rawValue: newValue.rawValue)) }
+    }
+    
     // MARK: - Methods
     
     /// Adds an opaque color stop to a gradient pattern.
@@ -99,5 +125,10 @@ public final class Pattern {
 public enum PatternType: UInt32 {
     
     case solid, surface, linear, radial, mesh, rasterSource
+}
+
+public enum Extend: UInt32 {
+    
+    case none, `repeat`, reflect, pad
 }
 
