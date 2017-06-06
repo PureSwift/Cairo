@@ -15,7 +15,8 @@ final class CairoTests: XCTestCase {
     static let allTests = [
         ("testSourceX", testSourceX),
         ("testImageFormats", testImageFormats),
-        ("testReadPNGData", testReadPNGData)
+        ("testReadPNGData", testReadPNGData),
+        ("testPDFSurface", testPDFSurface)
         ]
     
     func testSourceX() {
@@ -63,6 +64,26 @@ final class CairoTests: XCTestCase {
             }
         }
     }
+    
+    func testPDFSurface() {
+        
+        let testName = "testPDFSurface"
+        
+        func fileName(for size: Int) -> String {
+            
+            return outputDirectory + "\(testName)_\(size).pdf"
+        }
+        
+        testDraw(createSurface:{ try! Surface.PDF(filename: fileName(for: $0), width: Double($0), height: Double($0)) }) { (surface) in
+            
+            surface.flush()
+            surface.finish()
+            
+            
+            
+            print("Wrote \(#function) test to \(testFilename)")
+        }
+    }
 }
 
 fileprivate extension Context {
@@ -99,6 +120,24 @@ fileprivate extension Context {
 
 fileprivate extension CairoTests {
     
+    func testDraw<T: Surface>(functionName: String = #function,
+                  createSurface: (_ size: Int) -> (T),
+                  forEach: ((_ surface: T) -> ())? = nil) {
+        
+        let sizes = [10, 20, 50, 100, 200, 500, 1000, 10000]
+        
+        for size in sizes {
+            
+            let surface = createSurface(size)
+            
+            let context = Cairo.Context(surface: surface)
+            
+            context.drawSourceX(size: size)
+            
+            forEach?(surface)
+        }
+    }
+    
     func writeTestPNG(testName: String,
                       functionName: String = #function,
                       forEach: ((_ surface: Surface.Image, _ filename: String) -> ())? = nil) {
@@ -111,13 +150,13 @@ fileprivate extension CairoTests {
             
             for size in sizes {
                 
-                let testFilename = outputDirectory + "\(testName)_\(format)_\(size).png"
-                
                 let surface = try! Surface.Image(format: format, width: size, height: size)
                 
                 let context = Cairo.Context(surface: surface)
                 
                 context.drawSourceX(size: size)
+                
+                let testFilename = outputDirectory + "\(testName)_\(format)_\(size).png"
                 
                 surface.writePNG(atPath: testFilename)
                 
@@ -141,7 +180,7 @@ let outputDirectory: String = {
         try! FileManager.default.createDirectory(atPath: outputDirectory, withIntermediateDirectories: false)
     }
     
-    // remove all files in directory
+    // remove all files in directory (previous test cache)
     let contents = try! FileManager.default.contentsOfDirectory(atPath: outputDirectory)
     
     contents.forEach { try! FileManager.default.removeItem(atPath: outputDirectory + $0) }
