@@ -105,7 +105,7 @@ public extension Surface {
                 // retain surface pointer so the data can still exist even after Swift object deinit
                 cairo_surface_reference(internalPointer)
                 
-                let deallocator = Data.Deallocator.custom({ _ in cairo_surface_destroy(internalPointer) })
+                let deallocator = Data.Deallocator.custom({ (_, _) in cairo_surface_destroy(internalPointer) })
                 
                 return Data(bytesNoCopy: pointer, count: length, deallocator: deallocator)
             }
