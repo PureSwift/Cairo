@@ -494,3 +494,18 @@ public final class Context {
     }
 }
 
+#if os(macOS) && Xcode
+    
+    import Foundation
+    import AppKit
+    
+    public extension Context {
+        
+        @objc(debugQuickLookObject)
+        public var debugQuickLookObject: AnyObject {
+            
+            return surface.debugQuickLookObject
+        }
+    }
+    
+#endif
