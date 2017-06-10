@@ -39,6 +39,17 @@ public extension Surface {
             try super.init(internalPointer)
         }
         
+        /// Creates an image surface for the provided pixel data, copying the buffer.
+        public convenience init(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
+            
+            var data = data
+            
+            // a bit unsafe, but cant use self.init inside closure.
+            let bytes: UnsafeMutablePointer<UInt8> = data.withUnsafeMutableBytes { $0 }
+            
+            try self.init(mutableBytes: bytes, format: format, width: width, height: height, stride: stride)
+        }
+        
         /// For internal use with extensions (e.g. `init(png:)`)
         internal override init(_ internalPointer: OpaquePointer) throws {
             
