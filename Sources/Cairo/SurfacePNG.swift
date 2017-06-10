@@ -16,6 +16,22 @@ public extension Surface {
         
         cairo_surface_write_to_png(internalPointer, path)
     }
+    
+    public func writePNG() throws -> Data {
+        
+        let dataProvider = PNGDataProvider()
+        
+        let unmanaged = Unmanaged.passUnretained(dataProvider)
+        
+        let pointer = unmanaged.toOpaque()
+        
+        if let error = cairo_surface_write_to_png_stream(internalPointer, pngWrite, pointer).toError() {
+            
+            throw error
+        }
+        
+        return dataProvider.data
+    }
 }
 
 public extension Surface.Image {
@@ -43,16 +59,15 @@ public extension Surface.Image {
 
 // MARK: - Supporting Types
 
-fileprivate extension Surface.Image {
+fileprivate extension Surface {
     
     final class PNGDataProvider {
         
-        let data: Data
-        private(set) var position: Int
+        private(set) var data: Data
+        private(set) var readPosition: Int = 0
         
-        init(data: Data) {
+        init(data: Data = Data()) {
             self.data = data
-            self.position = 0
         }
         
         @inline(__always)
@@ -60,16 +75,24 @@ fileprivate extension Surface.Image {
             
             var size = length
             
-            if (position + size) > data.count {
+            if (readPosition + size) > data.count {
                 
-                size = data.count - position;
+                size = data.count - readPosition;
             }
             
-            let byteRange = Range<Data.Index>(position ..< position + size)
+            let byteRange = Range<Data.Index>(readPosition ..< readPosition + size)
             
             let _ = data.copyBytes(to: pointer, from: byteRange)
             
-            position += size
+            readPosition += size
+            
+            return CAIRO_STATUS_SUCCESS
+        }
+        
+        @inline(__always)
+        func copyBytes(from pointer: UnsafePointer<UInt8>, length: Int) -> cairo_status_t {
+            
+            data.append(pointer, count: length)
             
             return CAIRO_STATUS_SUCCESS
         }
@@ -81,9 +104,19 @@ fileprivate extension Surface.Image {
 @_silgen_name("_cairo_swift_png_read_data")
 private func pngRead(_ closure: UnsafeMutableRawPointer?, _ data: UnsafeMutablePointer<UInt8>?, _ length: UInt32) -> cairo_status_t {
     
-    let unmanaged = Unmanaged<Surface.Image.PNGDataProvider>.fromOpaque(closure!)
+    let unmanaged = Unmanaged<Surface.PNGDataProvider>.fromOpaque(closure!)
     
     let dataProvider = unmanaged.takeUnretainedValue()
     
     return dataProvider.copyBytes(to: data!, length: Int(length))
+}
+
+@_silgen_name("_cairo_swift_png_write_data")
+private func pngWrite(_ closure: UnsafeMutableRawPointer?, _ data: UnsafePointer<UInt8>?, _ length: UInt32) -> cairo_status_t {
+    
+    let unmanaged = Unmanaged<Surface.PNGDataProvider>.fromOpaque(closure!)
+    
+    let dataProvider = unmanaged.takeUnretainedValue()
+    
+    return dataProvider.copyBytes(from: data!, length: Int(length))
 }
