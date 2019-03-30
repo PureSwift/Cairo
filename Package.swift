@@ -12,7 +12,8 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Cairo"
+            name: "Cairo",
+            dependencies: ["CCairo", "CFontConfig", "CFreeType"]
         )
     ]
 )
