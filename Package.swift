@@ -10,6 +10,9 @@ let package = Package(
         .package(url: "https://github.com/PureSwift/CFontConfig.git", .revision("f47c3ea87307478428df762dc2e181c12643a884")),
         .package(url: "https://github.com/PureSwift/CFreeType.git", .revision("a8c830218999af31691e154cecae783bae1f0ab9"))
     ],
+    products: [
+        .library(name: "Cairo", targets: ["Cairo"])
+    ],
     targets: [
         .target(
             name: "Cairo",
