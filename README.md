@@ -1,10 +1,10 @@
 # Cairo
 Cairo library for Swift
 
-## OS X Installation
+## macOS Installation
 
 `brew install cairo`
 
-## Ubuntu Installation
+## Linux Installation
 
 `sudo apt-get install libcairo2-dev`

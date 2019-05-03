@@ -10,7 +10,7 @@ import CCairo
 
 public extension Surface {
     
-    public final class SVG: Surface {
+    final class SVG: Surface {
         
         // MARK: - Initialization
         

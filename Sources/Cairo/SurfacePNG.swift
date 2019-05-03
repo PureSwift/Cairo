@@ -12,12 +12,12 @@ import CCairo
 public extension Surface {
     
     /// Writes the surface's contents to a PNG file.
-    public func writePNG(atPath path: String) {
+    func writePNG(atPath path: String) {
         
         cairo_surface_write_to_png(internalPointer, path)
     }
     
-    public func writePNG() throws -> Data {
+    func writePNG() throws -> Data {
         
         let dataProvider = PNGDataProvider()
         
@@ -38,7 +38,7 @@ public extension Surface.Image {
     
     /// Creates a new image surface from PNG data read incrementally via the read function.
     @inline(__always)
-    fileprivate convenience init(png readFunction: @escaping cairo_read_func_t, closure: UnsafeMutableRawPointer) throws {
+    private convenience init(png readFunction: @escaping cairo_read_func_t, closure: UnsafeMutableRawPointer) throws {
         
         let internalPointer = cairo_image_surface_create_from_png_stream(readFunction, closure)!
         
@@ -59,7 +59,7 @@ public extension Surface.Image {
 
 // MARK: - Supporting Types
 
-fileprivate extension Surface {
+private extension Surface {
     
     final class PNGDataProvider {
         
@@ -80,9 +80,7 @@ fileprivate extension Surface {
                 size = data.count - readPosition;
             }
             
-            let byteRange = Range<Data.Index>(readPosition ..< readPosition + size)
-            
-            let _ = data.copyBytes(to: pointer, from: byteRange)
+            let _ = data.copyBytes(to: pointer, from: readPosition ..< readPosition + size)
             
             readPosition += size
             

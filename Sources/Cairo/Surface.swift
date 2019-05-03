@@ -98,25 +98,3 @@ internal func cairo_surface_create_check_status(_ internalPointer: OpaquePointer
         throw error
     }
 }
-
-#if os(macOS) && Xcode
-    
-    import Foundation
-    import AppKit
-    
-    public extension Surface {
-        
-        @objc(debugQuickLookObject)
-        public var debugQuickLookObject: AnyObject {
-            
-            let filePath = NSTemporaryDirectory() + "CairoSwiftQuickLook\(UUID().uuidString).png"
-            
-            self.writePNG(atPath: filePath)
-            
-            let image = NSImage(byReferencingFile: filePath)!
-            
-            return image
-        }
-    }
-    
-#endif

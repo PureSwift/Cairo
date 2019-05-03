@@ -10,7 +10,7 @@ import CCairo
 
 public extension Surface {
     
-    public final class PDF: Surface {
+    final class PDF: Surface {
         
         // MARK: - Initialization
         

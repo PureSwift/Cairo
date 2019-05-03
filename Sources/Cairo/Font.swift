@@ -188,7 +188,7 @@ public final class ScaledFont {
             
             let bufferSize = 256
             let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: bufferSize)
-            defer { buffer.deallocate(capacity: bufferSize) }
+            defer { buffer.deallocate() }
             
             FT_Get_Glyph_Name(fontFace, FT_UInt(glyph), buffer, FT_UInt(bufferSize))
             
@@ -244,7 +244,7 @@ public final class ScaledFont {
     
     // MARK: - Private Methods
     
-    fileprivate func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
+    private func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
         
         let ftFace = cairo_ft_scaled_font_lock_face(self.internalPointer)!
         
@@ -294,7 +294,7 @@ public final class FontFace {
     public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
 }
 
-public final class FontOptions: Equatable, Hashable {
+public final class FontOptions {
     
     // MARK: - Properties
     
@@ -337,16 +337,11 @@ public final class FontOptions: Equatable, Hashable {
         return FontOptions(cairo_font_options_copy(internalPointer))
     }
     
-    public var hashValue: Int {
+    public var hintMetrics: FontHintMetrics {
         
-        return Int(bitPattern: cairo_font_options_hash(internalPointer))
-    }
-    
-    public var hintMetrics: cairo_hint_metrics_t {
+        get { return FontHintMetrics(rawValue: cairo_font_options_get_hint_metrics(internalPointer).rawValue)! }
         
-        get { return cairo_font_options_get_hint_metrics(internalPointer) }
-        
-        set { cairo_font_options_set_hint_metrics(internalPointer, newValue) }
+        set { cairo_font_options_set_hint_metrics(internalPointer, cairo_hint_metrics_t(rawValue: newValue.rawValue)) }
     }
     
     public var hintStyle: cairo_hint_style_t {
@@ -371,9 +366,21 @@ public final class FontOptions: Equatable, Hashable {
     }
 }
 
-public func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
+extension FontOptions: Equatable {
     
-    return cairo_font_options_equal(lhs.internalPointer, rhs.internalPointer) != 0
+    public static func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
+        
+        return cairo_font_options_equal(lhs.internalPointer, rhs.internalPointer) != 0
+    }
+}
+
+extension FontOptions: Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+        
+        let hashValue = cairo_font_options_hash(internalPointer)
+        hashValue.hash(into: &hasher)
+    }
 }
 
 // MARK: - Supporting Types
@@ -381,18 +388,27 @@ public func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
 /// cairo_font_slant_t
 public enum FontSlant: UInt32 {
     
-    case normal, italic, oblique
+    case normal
+    case italic
+    case oblique
 }
 
 /// cairo_font_weight_t
 public enum FontWeight: UInt32 {
     
-    case normal, bold
+    case normal
+    case bold
+}
+
+/// cairo_hint_metrics_t
+public enum FontHintMetrics: UInt32 {
+    
+    case `default`
+    case off
+    case on
 }
 
 #if os(Linux)
-    
-    public let FT_SFNT_OS2 = FT_Sfnt_Tag(rawValue: 2)
-    public let FT_SFNT_POST = FT_Sfnt_Tag(rawValue: 5)
-    
+public let FT_SFNT_OS2 = FT_Sfnt_Tag(rawValue: 2)
+public let FT_SFNT_POST = FT_Sfnt_Tag(rawValue: 5)
 #endif
