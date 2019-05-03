@@ -89,7 +89,7 @@ final class CairoTests: XCTestCase {
     }
 }
 
-fileprivate extension Context {
+private extension Context {
     
     func drawSourceX(size: Int) {
         
@@ -121,7 +121,7 @@ fileprivate extension Context {
     }
 }
 
-fileprivate extension CairoTests {
+private extension CairoTests {
     
     func writeTestPNG(testName: String,
                       functionName: String = #function,

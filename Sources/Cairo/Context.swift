@@ -493,19 +493,3 @@ public final class Context {
         set { cairo_set_scaled_font(internalPointer, newValue.internalPointer) }
     }
 }
-
-#if os(macOS) && Xcode
-    
-    import Foundation
-    import AppKit
-    
-    public extension Context {
-        
-        @objc(debugQuickLookObject)
-        public var debugQuickLookObject: AnyObject {
-            
-            return surface.debugQuickLookObject
-        }
-    }
-    
-#endif

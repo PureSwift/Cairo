@@ -13,7 +13,7 @@ public extension Surface {
     
     /// Image surfaces provide the ability to render to memory buffers either allocated by Cairo or by the calling code.
     /// The supported image formats are those defined in `ImageFormat`.
-    public final class Image: Surface {
+    final class Image: Surface {
         
         // MARK: - Initialization
         
@@ -30,7 +30,11 @@ public extension Surface {
         }
         
         /// Creates an image surface for the provided pixel data.
-        public init(mutableBytes bytes: UnsafeMutablePointer<UInt8>, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
+        public init(mutableBytes bytes: UnsafeMutablePointer<UInt8>,
+                    format: ImageFormat,
+                    width: Int,
+                    height: Int,
+                    stride: Int) throws {
             
             assert(format.stride(for: width) == stride, "Invalid stride")
             
@@ -44,10 +48,13 @@ public extension Surface {
             
             var data = data
             
-            // a bit unsafe, but cant use self.init inside closure.
-            let bytes: UnsafeMutablePointer<UInt8> = data.withUnsafeMutableBytes { $0 }
+            let pointer = data.withUnsafeMutableBytes { $0.baseAddress!.assumingMemoryBound(to: UInt8.self) }
             
-            try self.init(mutableBytes: bytes, format: format, width: width, height: height, stride: stride)
+            try self.init(mutableBytes: pointer,
+                          format: format,
+                          width: width,
+                          height: height,
+                          stride: stride)
         }
         
         /// For internal use with extensions (e.g. `init(png:)`)
