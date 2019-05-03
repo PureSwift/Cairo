@@ -43,18 +43,24 @@ public extension Surface {
             try super.init(internalPointer)
         }
         
-        /// Creates an image surface for the provided pixel data, copying the buffer.
-        public convenience init(data: Data, format: ImageFormat, width: Int, height: Int, stride: Int) throws {
+        /// Creates an image surface for the provided pixel data.
+        static func from <Result> (data: inout Data,
+                                   format: ImageFormat,
+                                   width: Int,
+                                   height: Int,
+                                   stride: Int,
+                                   body: (Surface.Image) throws -> Result) throws -> Result {
             
-            var data = data
-            
-            let pointer = data.withUnsafeMutableBytes { $0.baseAddress!.assumingMemoryBound(to: UInt8.self) }
-            
-            try self.init(mutableBytes: pointer,
-                          format: format,
-                          width: width,
-                          height: height,
-                          stride: stride)
+            return try data.withUnsafeMutableBytes {
+                let surface = try Surface.Image(
+                    mutableBytes: $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
+                    format: format,
+                    width: width,
+                    height: height,
+                    stride: stride
+                )
+                return try body(surface)
+            }
         }
         
         /// For internal use with extensions (e.g. `init(png:)`)
@@ -66,12 +72,7 @@ public extension Surface {
         // MARK: - Class Methods
         
         public override class func isCompatible(with surfaceType: SurfaceType) -> Bool {
-            
-            switch surfaceType {
-                
-            case .image: return true
-            default: return false
-            }
+            return surfaceType == .image
         }
         
         // MARK: - Accessors
