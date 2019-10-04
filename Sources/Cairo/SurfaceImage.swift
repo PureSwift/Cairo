@@ -24,9 +24,9 @@ public extension Surface {
         /// The contents of bits within a pixel, but not belonging to the given format are undefined.
         public init(format: ImageFormat, width: Int, height: Int) throws {
             
-            let internalPointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))!
+            let pointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))!
             
-            try super.init(internalPointer)
+            try super.init(pointer)
         }
         
         /// Creates an image surface for the provided pixel data.
@@ -38,9 +38,9 @@ public extension Surface {
             
             assert(format.stride(for: width) == stride, "Invalid stride")
             
-            let internalPointer = cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride))!
+            let pointer = cairo_image_surface_create_for_data(bytes, cairo_format_t(format), Int32(width), Int32(height), Int32(stride))!
             
-            try super.init(internalPointer)
+            try super.init(pointer)
         }
         
         /// Creates an image surface for the provided pixel data.
@@ -64,9 +64,9 @@ public extension Surface {
         }
         
         /// For internal use with extensions (e.g. `init(png:)`)
-        internal override init(_ internalPointer: OpaquePointer) throws {
+        internal override init(_ pointer: OpaquePointer) throws {
             
-            try super.init(internalPointer)
+            try super.init(pointer)
         }
                 
         // MARK: - Class Methods
@@ -80,31 +80,31 @@ public extension Surface {
         /// Get the format of the surface.
         public var format: ImageFormat? {
             
-            return ImageFormat(cairo_image_surface_get_format(internalPointer))
+            return ImageFormat(cairo_image_surface_get_format(pointer))
         }
         
         /// Get the width of the image surface in pixels.
         public var width: Int {
             
-            return Int(cairo_image_surface_get_width(internalPointer))
+            return Int(cairo_image_surface_get_width(pointer))
         }
         
         /// Get the height of the image surface in pixels.
         public var height: Int {
             
-            return Int(cairo_image_surface_get_height(internalPointer))
+            return Int(cairo_image_surface_get_height(pointer))
         }
         
         /// Get the stride of the image surface in bytes
         public var stride: Int {
             
-            return Int(cairo_image_surface_get_stride(internalPointer))
+            return Int(cairo_image_surface_get_stride(pointer))
         }
         
         /// Get a pointer to the data of the image surface, for direct inspection or modification.
         public func withUnsafeMutableBytes<Result>(_ body: (UnsafeMutablePointer<UInt8>) throws -> Result) rethrows -> Result? {
             
-            guard let bytes = cairo_image_surface_get_data(internalPointer)
+            guard let bytes = cairo_image_surface_get_data(pointer)
                 else { return nil }
             
             return try body(bytes)
@@ -113,20 +113,20 @@ public extension Surface {
         /// Get the immutable data of the image surface.
         public lazy var data: Data? = {
             
-            let internalPointer = self.internalPointer
+            let pointer = self.pointer
             
             let length = self.stride * self.height
             
             return self.withUnsafeMutableBytes { (bytes) in
                 
-                let pointer = UnsafeMutableRawPointer(bytes)
+                let bytesPointer = UnsafeMutableRawPointer(bytes)
                 
                 // retain surface pointer so the data can still exist even after Swift object deinit
-                cairo_surface_reference(internalPointer)
+                cairo_surface_reference(pointer)
                 
-                let deallocator = Data.Deallocator.custom({ (_, _) in cairo_surface_destroy(internalPointer) })
+                let deallocator = Data.Deallocator.custom({ (_, _) in cairo_surface_destroy(pointer) })
                 
-                return Data(bytesNoCopy: pointer, count: length, deallocator: deallocator)
+                return Data(bytesNoCopy: bytesPointer, count: length, deallocator: deallocator)
             }
         }()
     }

@@ -16,9 +16,9 @@ public extension Surface {
         
         public init(filename: String, width: Double, height: Double) throws {
             
-            let internalPointer = cairo_svg_surface_create(filename, width, height)!
+            let pointer = cairo_svg_surface_create(filename, width, height)!
             
-            try super.init(internalPointer)
+            try super.init(pointer)
         }
         
         // MARK: - Class Methods

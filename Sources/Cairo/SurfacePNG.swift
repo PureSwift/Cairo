@@ -14,7 +14,7 @@ public extension Surface {
     /// Writes the surface's contents to a PNG file.
     func writePNG(atPath path: String) {
         
-        cairo_surface_write_to_png(internalPointer, path)
+        cairo_surface_write_to_png(pointer, path)
     }
     
     func writePNG() throws -> Data {
@@ -23,9 +23,9 @@ public extension Surface {
         
         let unmanaged = Unmanaged.passUnretained(dataProvider)
         
-        let pointer = unmanaged.toOpaque()
+        let dataPointer = unmanaged.toOpaque()
         
-        if let error = cairo_surface_write_to_png_stream(internalPointer, pngWrite, pointer).toError() {
+        if let error = cairo_surface_write_to_png_stream(pointer, pngWrite, dataPointer).toError() {
             
             throw error
         }
@@ -40,9 +40,9 @@ public extension Surface.Image {
     @inline(__always)
     private convenience init(png readFunction: @escaping cairo_read_func_t, closure: UnsafeMutableRawPointer) throws {
         
-        let internalPointer = cairo_image_surface_create_from_png_stream(readFunction, closure)!
+        let pointer = cairo_image_surface_create_from_png_stream(readFunction, closure)!
         
-        try self.init(internalPointer)
+        try self.init(pointer)
     }
     
     convenience init(png data: Data) throws {

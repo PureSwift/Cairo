@@ -10,22 +10,22 @@ import CCairo
 
 public class Surface {
     
-    // MARK: - Internal Properties
+    // MARK: - Properties
     
-    internal let internalPointer: OpaquePointer
+    public let pointer: OpaquePointer
     
     // MARK: - Initialization
     
     deinit {
         
-        cairo_surface_destroy(internalPointer)
+        cairo_surface_destroy(pointer)
     }
     
-    internal init(_ internalPointer: OpaquePointer) throws {
+    internal init(_ pointer: OpaquePointer) throws {
         
-        try cairo_surface_create_check_status(internalPointer)
+        try cairo_surface_create_check_status(pointer)
         
-        self.internalPointer = internalPointer
+        self.pointer = pointer
     }
     
     // MARK: - Class Methods
@@ -46,7 +46,7 @@ public class Surface {
     /// If the surface doesn't support direct access, then this function does nothing.
     public final func flush() {
         
-        cairo_surface_flush(internalPointer)
+        cairo_surface_flush(pointer)
     }
     
     /// Tells cairo that drawing has been done to surface using means other than cairo, 
@@ -55,32 +55,32 @@ public class Surface {
     /// - Note: You must `Cairo.Surface.flush()` before doing such drawing.
     public final func markDirty() {
         
-        cairo_surface_mark_dirty(internalPointer)
+        cairo_surface_mark_dirty(pointer)
     }
     
     /// This function finishes the surface and drops all references to external resources.
     public final func finish() {
         
-        cairo_surface_finish(internalPointer)
+        cairo_surface_finish(pointer)
     }
     
     // MARK: - Accessors
     
     public final var type: SurfaceType {
         
-        return SurfaceType(cairo_surface_get_type(internalPointer))
+        return SurfaceType(cairo_surface_get_type(pointer))
     }
     
     /// The content type which indicates whether the surface contains color and/or alpha information
     public final var content: Content {
         
-        return Content(cairo_surface_get_content(internalPointer))
+        return Content(cairo_surface_get_content(pointer))
     }
     
     /// Checks whether an error has previously occurred for this surface.
     public final var status: Status {
         
-        return cairo_surface_status(internalPointer)
+        return cairo_surface_status(pointer)
     }
 }
 
@@ -88,12 +88,12 @@ public class Surface {
 
 /// Used to check if the surface has an error
 @inline(__always)
-internal func cairo_surface_create_check_status(_ internalPointer: OpaquePointer) throws {
+internal func cairo_surface_create_check_status(_ pointer: OpaquePointer) throws {
     
     // check status
-    if let error = CairoError(rawValue: cairo_surface_status(internalPointer).rawValue) {
+    if let error = CairoError(rawValue: cairo_surface_status(pointer).rawValue) {
         
-        cairo_surface_destroy(internalPointer)
+        cairo_surface_destroy(pointer)
         
         throw error
     }

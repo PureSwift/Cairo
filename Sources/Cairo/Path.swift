@@ -10,32 +10,32 @@ import CCairo
 
 public final class Path {
     
-    // MARK: - Internal Properties
+    // MARK: - Properties
     
-    internal let internalPointer: UnsafeMutablePointer<cairo_path_t>
+    public let pointer: UnsafeMutablePointer<cairo_path_t>
     
     // MARK: - Initialization
     
     deinit {
         
-        cairo_path_destroy(internalPointer)
+        cairo_path_destroy(pointer)
     }
     
-    internal init(_ internalPointer: UnsafeMutablePointer<cairo_path_t>) {
+    internal init(_ pointer: UnsafeMutablePointer<cairo_path_t>) {
         
-        self.internalPointer = internalPointer
+        self.pointer = pointer
     }
     
     // MARK: - Properties
     
     public var count: Int {
         
-        return Int(internalPointer.pointee.num_data)
+        return Int(pointer.pointee.num_data)
     }
     
     public var status: Status {
         
-        return internalPointer.pointee.status
+        return pointer.pointee.status
     }
     
     public lazy var data: [cairo_path_data_t] = {
@@ -44,7 +44,7 @@ public final class Path {
         
         for index in 0 ..< self.count {
             
-            data[index] = self.internalPointer.pointee.data[index]
+            data[index] = self.pointer.pointee.data[index]
         }
         
         return data
@@ -54,6 +54,6 @@ public final class Path {
     
     public subscript (index: Int) -> cairo_path_data_t {
         
-        return internalPointer.pointee.data[index]
+        return pointer.pointee.data[index]
     }
 }

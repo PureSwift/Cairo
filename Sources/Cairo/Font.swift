@@ -14,25 +14,25 @@ public final class ScaledFont {
     
     // MARK: - Properties
     
-    internal let internalPointer: OpaquePointer
+    public let pointer: OpaquePointer
     
     // MARK: - Initialization
     
     deinit {
         
-        cairo_scaled_font_destroy(internalPointer)
+        cairo_scaled_font_destroy(pointer)
     }
     
-    internal init(_ internalPointer: OpaquePointer) {
+    internal init(_ pointer: OpaquePointer) {
         
-        self.internalPointer = internalPointer
+        self.pointer = pointer
     }
     
     public init(face: FontFace, matrix: Matrix, currentTransformation: Matrix, options: FontOptions) {
         
         var matrixCopy = (matrix, currentTransformation)
         
-        self.internalPointer = cairo_scaled_font_create(face.internalPointer, &matrixCopy.0, &matrixCopy.1, options.internalPointer)!
+        self.pointer = cairo_scaled_font_create(face.pointer, &matrixCopy.0, &matrixCopy.1, options.pointer)!
         
         guard self.status != CAIRO_STATUS_NO_MEMORY
             else { fatalError("Out of memory") }
@@ -42,17 +42,17 @@ public final class ScaledFont {
     
     public var status: Status {
         
-        return cairo_scaled_font_status(internalPointer)
+        return cairo_scaled_font_status(pointer)
     }
     
     public lazy var type: cairo_font_type_t = {
         
-        return cairo_scaled_font_get_type(self.internalPointer)
+        return cairo_scaled_font_get_type(self.pointer)
     }()
     
     public lazy var face: FontFace = {
         
-        let pointer = cairo_scaled_font_get_font_face(self.internalPointer)!
+        let pointer = cairo_scaled_font_get_font_face(self.pointer)!
         
         cairo_font_face_reference(pointer)
         
@@ -64,7 +64,7 @@ public final class ScaledFont {
         
         var fontExtents = cairo_font_extents_t()
         
-        cairo_scaled_font_extents(internalPointer, &fontExtents)
+        cairo_scaled_font_extents(pointer, &fontExtents)
         
         return fontExtents
     }
@@ -246,9 +246,9 @@ public final class ScaledFont {
     
     private func lockFontFace<T>(_ block: (FT_Face) -> T) -> T {
         
-        let ftFace = cairo_ft_scaled_font_lock_face(self.internalPointer)!
+        let ftFace = cairo_ft_scaled_font_lock_face(self.pointer)!
         
-        defer { cairo_ft_scaled_font_unlock_face(self.internalPointer) }
+        defer { cairo_ft_scaled_font_unlock_face(self.pointer) }
         
         return block(ftFace)
     }
@@ -265,104 +265,104 @@ public final class FontFace {
     
     // MARK: - Properties
     
-    internal let internalPointer: OpaquePointer
+    internal let pointer: OpaquePointer
     
     // MARK: - Initialization
     
     deinit {
         
-        cairo_font_face_destroy(internalPointer)
+        cairo_font_face_destroy(pointer)
     }
     
     public init(fontConfigPattern: OpaquePointer) {
         
-        self.internalPointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
+        self.pointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
     }
     
-    internal init(_ internalPointer: OpaquePointer) {
+    internal init(_ pointer: OpaquePointer) {
         
-        self.internalPointer = internalPointer
+        self.pointer = pointer
     }
     
     // MARK: - Accessors
     
     public var status: Status {
         
-        return cairo_font_face_status(internalPointer)
+        return cairo_font_face_status(pointer)
     }
     
-    public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
+    public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.pointer) // Never changes
 }
 
 public final class FontOptions {
     
     // MARK: - Properties
     
-    internal let internalPointer: OpaquePointer
+    internal let pointer: OpaquePointer
     
     // MARK: - Initialization
     
     deinit {
         
-        cairo_font_options_destroy(internalPointer)
+        cairo_font_options_destroy(pointer)
     }
     
-    internal init(_ internalPointer: OpaquePointer) {
+    internal init(_ pointer: OpaquePointer) {
         
-        self.internalPointer = internalPointer
+        self.pointer = pointer
     }
     
     /// Initializes a new `FontOptions` object.
     public init() {
         
-        self.internalPointer = cairo_font_options_create()!
+        self.pointer = cairo_font_options_create()!
     }
     
     // MARK: - Methods
     
     public func merge(_ other: FontOptions) {
         
-        cairo_font_options_merge(internalPointer, other.internalPointer)
+        cairo_font_options_merge(pointer, other.pointer)
     }
     
     // MARK: - Accessors
     
     public var status: Status {
         
-        return cairo_font_options_status(internalPointer)
+        return cairo_font_options_status(pointer)
     }
     
     public var copy: FontOptions {
         
-        return FontOptions(cairo_font_options_copy(internalPointer))
+        return FontOptions(cairo_font_options_copy(pointer))
     }
     
     public var hintMetrics: FontHintMetrics {
         
-        get { return FontHintMetrics(rawValue: cairo_font_options_get_hint_metrics(internalPointer).rawValue)! }
+        get { return FontHintMetrics(rawValue: cairo_font_options_get_hint_metrics(pointer).rawValue)! }
         
-        set { cairo_font_options_set_hint_metrics(internalPointer, cairo_hint_metrics_t(rawValue: newValue.rawValue)) }
+        set { cairo_font_options_set_hint_metrics(pointer, cairo_hint_metrics_t(rawValue: newValue.rawValue)) }
     }
     
     public var hintStyle: cairo_hint_style_t {
         
-        get { return cairo_font_options_get_hint_style(internalPointer) }
+        get { return cairo_font_options_get_hint_style(pointer) }
         
-        set { cairo_font_options_set_hint_style(internalPointer, newValue) }
+        set { cairo_font_options_set_hint_style(pointer, newValue) }
     }
     
     public var antialias: cairo_antialias_t {
         
-        get { return cairo_font_options_get_antialias(internalPointer) }
+        get { return cairo_font_options_get_antialias(pointer) }
         
-        set { cairo_font_options_set_antialias(internalPointer, newValue) }
+        set { cairo_font_options_set_antialias(pointer, newValue) }
     }
     
     public var subpixelOrder: cairo_subpixel_order_t {
         
-        get { return cairo_font_options_get_subpixel_order(internalPointer) }
+        get { return cairo_font_options_get_subpixel_order(pointer) }
         
-        set { cairo_font_options_set_subpixel_order(internalPointer, newValue) }
+        set { cairo_font_options_set_subpixel_order(pointer, newValue) }
     }
 }
 
@@ -370,7 +370,7 @@ extension FontOptions: Equatable {
     
     public static func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
         
-        return cairo_font_options_equal(lhs.internalPointer, rhs.internalPointer) != 0
+        return cairo_font_options_equal(lhs.pointer, rhs.pointer) != 0
     }
 }
 
@@ -378,7 +378,7 @@ extension FontOptions: Hashable {
     
     public func hash(into hasher: inout Hasher) {
         
-        let hashValue = cairo_font_options_hash(internalPointer)
+        let hashValue = cairo_font_options_hash(pointer)
         hashValue.hash(into: &hasher)
     }
 }
