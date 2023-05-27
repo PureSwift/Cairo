@@ -8,7 +8,7 @@
 
 import CCairo
 
-public class Surface {
+public class Surface: OpaquePointerOwner {
     
     // MARK: - Internal Properties
     

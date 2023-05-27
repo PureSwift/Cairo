@@ -11,7 +11,7 @@ import CCairo
 /// Represents a source when drawing onto a surface. 
 ///
 /// There are different subtypes of patterns, for different types of sources.
-public final class Pattern {
+public final class Pattern: OpaquePointerOwner {
     
     // MARK: - Internal Properties
     
