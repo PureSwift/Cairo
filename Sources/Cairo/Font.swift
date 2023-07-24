@@ -10,7 +10,7 @@ import CCairo
 import CFontConfig
 import CFreeType
 
-public final class ScaledFont {
+public final class ScaledFont: OpaquePointerOwner {
     
     // MARK: - Properties
     
@@ -261,7 +261,7 @@ public typealias FontIndex = UInt16
 /// The font's face.
 ///
 /// - Note: Only compatible with FreeType and FontConfig.
-public final class FontFace {
+public final class FontFace: OpaquePointerOwner {
     
     // MARK: - Properties
     
@@ -294,7 +294,7 @@ public final class FontFace {
     public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
 }
 
-public final class FontOptions {
+public final class FontOptions: OpaquePointerOwner {
     
     // MARK: - Properties
     

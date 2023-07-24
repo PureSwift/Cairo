@@ -9,7 +9,7 @@
 import CCairo
 
 /// Cairo Context
-public final class Context {
+public final class Context: OpaquePointerOwner {
     
     // MARK: - Properties
     
