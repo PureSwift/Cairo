@@ -33,14 +33,10 @@ public final class ScaledFont: OpaquePointerOwner {
         matrix: Matrix,
         currentTransformation: Matrix,
         options: FontOptions
-    ) {
-        
+    ) throws(CairoError) {
         var matrixCopy = (matrix, currentTransformation)
-        
         self.internalPointer = cairo_scaled_font_create(face.internalPointer, &matrixCopy.0, &matrixCopy.1, options.internalPointer)!
-        
-        guard self.status != CAIRO_STATUS_NO_MEMORY
-            else { fatalError("Out of memory") }
+        try self.status.throwsError()
     }
     
     // MARK: - Accessors
