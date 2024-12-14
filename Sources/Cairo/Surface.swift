@@ -21,7 +21,7 @@ public class Surface: OpaquePointerOwner {
         cairo_surface_destroy(internalPointer)
     }
     
-    internal init(_ internalPointer: OpaquePointer) throws {
+    internal init(_ internalPointer: OpaquePointer) throws(CairoError) {
         
         try cairo_surface_create_check_status(internalPointer)
         
@@ -88,7 +88,7 @@ public class Surface: OpaquePointerOwner {
 
 /// Used to check if the surface has an error
 @inline(__always)
-internal func cairo_surface_create_check_status(_ internalPointer: OpaquePointer) throws {
+internal func cairo_surface_create_check_status(_ internalPointer: OpaquePointer) throws(CairoError) {
     
     // check status
     if let error = CairoError(rawValue: cairo_surface_status(internalPointer).rawValue) {

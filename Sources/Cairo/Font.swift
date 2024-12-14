@@ -28,7 +28,12 @@ public final class ScaledFont: OpaquePointerOwner {
         self.internalPointer = internalPointer
     }
     
-    public init(face: FontFace, matrix: Matrix, currentTransformation: Matrix, options: FontOptions) {
+    public init(
+        face: FontFace,
+        matrix: Matrix,
+        currentTransformation: Matrix,
+        options: FontOptions
+    ) {
         
         var matrixCopy = (matrix, currentTransformation)
         
@@ -41,7 +46,6 @@ public final class ScaledFont: OpaquePointerOwner {
     // MARK: - Accessors
     
     public var status: Status {
-        
         return cairo_scaled_font_status(internalPointer)
     }
     
@@ -51,29 +55,22 @@ public final class ScaledFont: OpaquePointerOwner {
     }()
     
     public lazy var face: FontFace = {
-        
-        let pointer = cairo_scaled_font_get_font_face(self.internalPointer)!
-        
+        let pointer = cairo_scaled_font_get_font_face(internalPointer)!
         cairo_font_face_reference(pointer)
-        
         return FontFace(pointer)
     }()
     
     /// same as `maximumAdvancement`
     public var fontExtents: cairo_font_extents_t {
-        
         var fontExtents = cairo_font_extents_t()
-        
         cairo_scaled_font_extents(internalPointer, &fontExtents)
-        
         return fontExtents
     }
     
     // MARK: FreeType Properties
     
     public lazy var fullName: String = {
-        
-        return self.lockFontFace { String(validatingUTF8: $0.pointee.family_name)! }
+        return self.lockFontFace { String(validatingCString: $0.pointee.family_name)! }
     }()
     
     public lazy var postScriptName: String? = {
@@ -192,7 +189,7 @@ public final class ScaledFont: OpaquePointerOwner {
             
             FT_Get_Glyph_Name(fontFace, FT_UInt(glyph), buffer, FT_UInt(bufferSize))
             
-            return String(validatingUTF8: buffer)!
+            return String(validatingCString: buffer)!
         }
     }
     
@@ -270,28 +267,26 @@ public final class FontFace: OpaquePointerOwner {
     // MARK: - Initialization
     
     deinit {
-        
         cairo_font_face_destroy(internalPointer)
     }
     
     public init(fontConfigPattern: OpaquePointer) {
-        
         self.internalPointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
     }
     
     internal init(_ internalPointer: OpaquePointer) {
-        
         self.internalPointer = internalPointer
     }
     
     // MARK: - Accessors
     
     public var status: Status {
-        
         return cairo_font_face_status(internalPointer)
     }
     
-    public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
+    public var type: cairo_font_type_t {
+        cairo_font_face_get_type(internalPointer) // Never changes
+    }
 }
 
 public final class FontOptions: OpaquePointerOwner {
@@ -369,7 +364,6 @@ public final class FontOptions: OpaquePointerOwner {
 extension FontOptions: Equatable {
     
     public static func == (lhs: FontOptions, rhs: FontOptions) -> Bool {
-        
         return cairo_font_options_equal(lhs.internalPointer, rhs.internalPointer) != 0
     }
 }
@@ -377,7 +371,6 @@ extension FontOptions: Equatable {
 extension FontOptions: Hashable {
     
     public func hash(into hasher: inout Hasher) {
-        
         let hashValue = cairo_font_options_hash(internalPointer)
         hashValue.hash(into: &hasher)
     }

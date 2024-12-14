@@ -28,7 +28,6 @@ public extension Content {
     
     @inline(__always)
     init(_ content: cairo_content_t) {
-        
         self.init(rawValue: content.rawValue)!
     }
 }
@@ -37,7 +36,6 @@ public extension cairo_content_t {
     
     @inline(__always)
     init(_ content: Content) {
-        
         self.init(content.rawValue)
     }
 }

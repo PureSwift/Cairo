@@ -14,7 +14,7 @@ public extension Surface {
         
         // MARK: - Initialization
         
-        public init(filename: String, width: Double, height: Double) throws {
+        public init(filename: String, width: Double, height: Double) throws(CairoError) {
             
             let internalPointer = cairo_pdf_surface_create(filename, width, height)!
             

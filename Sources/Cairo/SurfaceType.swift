@@ -15,7 +15,7 @@ public enum SurfaceType: UInt32 {
     case image
     case pdf
     case ps
-    case xLib
+    case xlib
     case xcb
     case glitz
     case quartz

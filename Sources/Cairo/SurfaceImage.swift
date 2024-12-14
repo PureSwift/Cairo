@@ -22,7 +22,7 @@ public extension Surface {
         /// Initially the surface contents are all 0. 
         /// Specifically, within each pixel, each color or alpha channel belonging to format will be 0.
         /// The contents of bits within a pixel, but not belonging to the given format are undefined.
-        public init(format: ImageFormat, width: Int, height: Int) throws {
+        public init(format: ImageFormat, width: Int, height: Int) throws(CairoError) {
             
             let internalPointer = cairo_image_surface_create(cairo_format_t(format), Int32(width), Int32(height))!
             
@@ -34,7 +34,7 @@ public extension Surface {
                     format: ImageFormat,
                     width: Int,
                     height: Int,
-                    stride: Int) throws {
+                    stride: Int) throws(CairoError) {
             
             assert(format.stride(for: width) == stride, "Invalid stride")
             
@@ -49,22 +49,27 @@ public extension Surface {
                                    width: Int,
                                    height: Int,
                                    stride: Int,
-                                   body: (Surface.Image) throws -> Result) throws -> Result {
+                                   body: (Surface.Image) throws(CairoError) -> Result) throws(CairoError) -> Result {
             
-            return try data.withUnsafeMutableBytes {
-                let surface = try Surface.Image(
-                    mutableBytes: $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
-                    format: format,
-                    width: width,
-                    height: height,
-                    stride: stride
-                )
-                return try body(surface)
+            do {
+                return try data.withUnsafeMutableBytes {
+                    let surface = try Surface.Image(
+                        mutableBytes: $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
+                        format: format,
+                        width: width,
+                        height: height,
+                        stride: stride
+                    )
+                    return try body(surface)
+                }
+            }
+            catch {
+                throw error as! CairoError // Foundation API dont throw typed error
             }
         }
         
         /// For internal use with extensions (e.g. `init(png:)`)
-        internal override init(_ internalPointer: OpaquePointer) throws {
+        internal override init(_ internalPointer: OpaquePointer) throws(CairoError) {
             
             try super.init(internalPointer)
         }
