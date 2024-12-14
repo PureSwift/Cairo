@@ -12,13 +12,6 @@ import Foundation
 
 final class CairoTests: XCTestCase {
     
-    static let allTests = [
-        ("testSourceX", testSourceX),
-        ("testImageFormats", testImageFormats),
-        ("testReadPNGData", testReadPNGData),
-        ("testPDFSurface", testPDFSurface)
-        ]
-    
     func testSourceX() {
         
         let testFilename = outputDirectory + "sourceX.png"
