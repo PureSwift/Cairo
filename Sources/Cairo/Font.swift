@@ -49,10 +49,9 @@ public final class ScaledFont: OpaquePointerOwner {
         return cairo_scaled_font_status(internalPointer)
     }
     
-    public lazy var type: cairo_font_type_t = {
-        
-        return cairo_scaled_font_get_type(self.internalPointer)
-    }()
+    public var type: FontType {
+        FontType(cairo_scaled_font_get_type(internalPointer))
+    }
     
     public lazy var face: FontFace = {
         let pointer = cairo_scaled_font_get_font_face(internalPointer)!
@@ -399,6 +398,24 @@ public enum FontHintMetrics: UInt32 {
     case `default`
     case off
     case on
+}
+
+/// cairo_font_type_t
+public enum FontType: UInt32 {
+    
+    case toy
+    case ft
+    case win32
+    case quartz
+    case user
+    case dwrite
+}
+
+internal extension FontType {
+    
+    init(_ cairo: cairo_font_type_t) {
+        self.init(rawValue: cairo.rawValue)!
+    }
 }
 
 #if os(Linux)
