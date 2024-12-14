@@ -12,40 +12,32 @@ public typealias Status = cairo_status_t
 
 public extension Cairo.Status {
     
-    func toError() -> CairoError? {
-        
-        return CairoError(rawValue: rawValue)
+    init(error: CairoError) {
+        self.init(rawValue: error.rawValue)
     }
 }
 
-extension Cairo.Status: CustomStringConvertible {
+public extension Cairo.Status {
+    
+    static var success: Cairo.Status { CAIRO_STATUS_SUCCESS }
+}
+
+internal extension Cairo.Status {
+    
+    func throwsError() throws(CairoError) {
+        guard let error = CairoError(self) else {
+            return
+        }
+        throw error
+    }
+}
+
+extension Cairo.Status: @retroactive CustomStringConvertible {
     
     public var description: String {
-        
         let cString = cairo_status_to_string(self)!
-        
         let string = String(cString: cString)
-        
         return string
     }
 }
 
-public struct CairoError: RawRepresentable, CustomStringConvertible, Error {
-    
-    public typealias RawValue = cairo_status_t.RawValue
-    
-    public let rawValue: RawValue
-    
-    public init?(rawValue: RawValue) {
-        
-        guard rawValue > 0 && rawValue < CAIRO_STATUS_LAST_STATUS.rawValue
-            else { return nil }
-        
-        self.rawValue = rawValue
-    }
-    
-    public var description: String {
-        
-        return Cairo.Status(rawValue: self.rawValue).description
-    }
-}
