@@ -6,14 +6,22 @@ let package = Package(
     products: [
         .library(
             name: "Cairo",
-            targets: ["Cairo"]),
+            targets: ["Cairo"]
+        )
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/PureSwift/FontConfig.git",
+            branch: "master"
+        )
     ],
     targets: [
         .target(
             name: "Cairo",
             dependencies: [
                 "CCairo",
-                "CFreeType"
+                "CFreeType",
+                "FontConfig"
             ]
         ),
         .testTarget(

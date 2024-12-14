@@ -8,6 +8,7 @@
 
 import CCairo
 import CFreeType
+import FontConfig
 
 public final class ScaledFont {
     
@@ -266,8 +267,8 @@ public final class FontFace {
         cairo_font_face_destroy(internalPointer)
     }
     
-    public init(fontConfigPattern: OpaquePointer) {
-        self.internalPointer = cairo_ft_font_face_create_for_pattern(fontConfigPattern)!
+    public init(pattern: FontConfig.Pattern) {
+        self.internalPointer = pattern.withUnsafePointer(cairo_ft_font_face_create_for_pattern)!
     }
     
     internal init(_ internalPointer: OpaquePointer) {
