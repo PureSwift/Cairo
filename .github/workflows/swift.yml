@@ -39,7 +39,7 @@ jobs:
     - name: Swift Version
       run: swift --version
     - name: Install dependencies
-      run: DEBIAN_FRONTEND=noninteractive apt-get install -y libcairo2-dev libfreetype6-dev libfontconfig-dev
+      run: sudo apt-get install -y libcairo2-dev libfreetype6-dev libfontconfig-dev
     - name: Build (Debug)
       run: swift build -c debug
     - name: Build (Release)
