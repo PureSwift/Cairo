@@ -33,7 +33,6 @@ public class Surface {
     
     /// Whether this `Surface` class is compatible with the specified surface type / backend.
     public class func isCompatible(with surfaceType: SurfaceType) -> Bool {
-        
         return true
     }
     

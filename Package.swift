@@ -13,7 +13,6 @@ let package = Package(
             name: "Cairo",
             dependencies: [
                 "CCairo",
-                "CFontConfig",
                 "CFreeType"
             ]
         ),
@@ -29,13 +28,6 @@ let package = Package(
             providers: [
                 .brew(["cairo"]),
                 .apt(["libcairo2-dev"])
-            ]),
-        .systemLibrary(
-            name: "CFontConfig",
-            pkgConfig: "fontconfig",
-            providers: [
-                .brew(["fontconfig"]),
-                .apt(["libfontconfig-dev"])
             ]),
         .systemLibrary(
             name: "CFreeType",

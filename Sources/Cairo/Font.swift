@@ -7,7 +7,6 @@
 //
 
 import CCairo
-import CFontConfig
 import CFreeType
 
 public final class ScaledFont {
@@ -19,12 +18,10 @@ public final class ScaledFont {
     // MARK: - Initialization
     
     deinit {
-        
         cairo_scaled_font_destroy(internalPointer)
     }
     
     internal init(_ internalPointer: OpaquePointer) {
-        
         self.internalPointer = internalPointer
     }
     

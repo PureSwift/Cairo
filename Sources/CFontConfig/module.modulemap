@@ -1,5 +1,0 @@
-module CFontConfig [system] {
-    header "shim.h"
-    link "fontconfig"
-    export *
-}
