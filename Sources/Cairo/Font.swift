@@ -10,7 +10,7 @@ import CCairo
 import CFontConfig
 import CFreeType
 
-public final class ScaledFont: OpaquePointerOwner {
+public final class ScaledFont {
     
     // MARK: - Properties
     
@@ -206,6 +206,10 @@ public final class ScaledFont: OpaquePointerOwner {
     
     // MARK: - Methods
     
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
+    
     public func advances(for glyphs: [FontIndex]) -> [Int] {
         
         return self.lockFontFace { (fontFace) in
@@ -253,7 +257,7 @@ public typealias FontIndex = UInt16
 /// The font's face.
 ///
 /// - Note: Only compatible with FreeType and FontConfig.
-public final class FontFace: OpaquePointerOwner {
+public final class FontFace {
     
     // MARK: - Properties
     
@@ -282,9 +286,15 @@ public final class FontFace: OpaquePointerOwner {
     public var type: cairo_font_type_t {
         cairo_font_face_get_type(internalPointer) // Never changes
     }
+    
+    // MARK: - Methods
+    
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
 }
 
-public final class FontOptions: OpaquePointerOwner {
+public final class FontOptions {
     
     // MARK: - Properties
     
@@ -309,6 +319,10 @@ public final class FontOptions: OpaquePointerOwner {
     }
     
     // MARK: - Methods
+    
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
     
     public func merge(_ other: FontOptions) {
         

@@ -8,7 +8,7 @@
 
 import CCairo
 
-public class Surface: OpaquePointerOwner {
+public class Surface {
     
     // MARK: - Internal Properties
     
@@ -38,6 +38,10 @@ public class Surface: OpaquePointerOwner {
     }
     
     // MARK: - Methods
+    
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
     
     /// Do any pending drawing for the surface and also restore any temporary
     /// modifications cairo has made to the surface's state. 

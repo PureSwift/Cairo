@@ -9,14 +9,12 @@
 import CCairo
 
 /// Cairo Context
-public final class Context: OpaquePointerOwner {
+public final class Context {
     
     // MARK: - Properties
     
     public let surface: Surface
-    
-    // MARK: - Internal Properties
-    
+        
     internal let internalPointer: OpaquePointer
     
     // MARK: - Initialization
@@ -40,6 +38,10 @@ public final class Context: OpaquePointerOwner {
     }
     
     // MARK: - Methods
+    
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
     
     /// Makes a copy of the current state of the context and saves it on an internal stack of saved states.
     /// When `restore()` is called, the context will be restored to the saved state.

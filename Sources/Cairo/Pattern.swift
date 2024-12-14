@@ -11,9 +11,9 @@ import CCairo
 /// Represents a source when drawing onto a surface. 
 ///
 /// There are different subtypes of patterns, for different types of sources.
-public final class Pattern: OpaquePointerOwner {
+public final class Pattern {
     
-    // MARK: - Internal Properties
+    // MARK: - Properties
     
     internal var internalPointer: OpaquePointer
     
@@ -104,6 +104,10 @@ public final class Pattern: OpaquePointerOwner {
     }
     
     // MARK: - Methods
+    
+    public func withUnsafePointer<R, E>(_ body: (OpaquePointer) throws(E) -> R) throws(E) -> R where E: Error {
+        try body(internalPointer)
+    }
     
     /// Adds an opaque color stop to a gradient pattern.
     public func addColorStop(_ offset: Double, red: Double, green: Double, blue: Double) {
