@@ -5,8 +5,7 @@
 //  Created by Alsey Coleman Miller on 5/3/19.
 //
 
-#if os(macOS) && Xcode
-
+#if os(macOS)
 import Foundation
 import AppKit
 
@@ -29,5 +28,4 @@ public extension Context {
         return surface.debugQuickLookObject
     }
 }
-
 #endif
