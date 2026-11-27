@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Cairo",
+    platforms: [.macOS(.v12)],
     products: [
         .library(
             name: "Cairo",
@@ -12,7 +13,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/PureSwift/FontConfig.git",
-            branch: "master"
+            from: "2.0.0"
+        ),
+        .package(
+            url: "https://github.com/PureSwift/swift-freetype.git",
+            from: "0.1.1"
         )
     ],
     targets: [
@@ -20,7 +25,7 @@ let package = Package(
             name: "Cairo",
             dependencies: [
                 "CCairo",
-                "CFreeType",
+                .product(name: "FreeTypeSwift", package: "swift-freetype"),
                 "FontConfig"
             ]
         ),
@@ -36,13 +41,6 @@ let package = Package(
             providers: [
                 .brew(["cairo"]),
                 .apt(["libcairo2-dev"])
-            ]),
-        .systemLibrary(
-            name: "CFreeType",
-            pkgConfig: "freetype2",
-            providers: [
-                .brew(["freetype"]),
-                .apt(["libfreetype6-dev"])
             ])
     ]
 )
